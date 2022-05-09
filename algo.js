@@ -539,3 +539,235 @@ const multBy2AndLog = saveOutput(multiplyBy2, "boo");
 // console.log(multBy2AndLog(2)); // => should log 4
 // console.log(multBy2AndLog(9)); // => should log 18
 // console.log(multBy2AndLog('boo')); // => should log { 2: 4, 9: 18 }
+
+//----------------------------------------------------
+
+//Challenge 11 Create a function dateStamp that accepts a function and returns a function. The returned function will accept however many arguments
+// the passed-in function accepts, and return an object with a date key that contains a timestamp with the time of invocation, and an output key that
+// contains the result from invoking the passed-in function. HINT: You may need to research how to access information on Date objects.
+
+function dateStamp(func) {
+  //create const named obj assign it to the empty obj;
+  //return fuction with one parameter num;
+  //create the key, date, in the obj, and assign the value to todays date
+  //create another key, output, in the obj, and assign the value to the evaluated result of invoking function func passing in num
+  // return obj
+  const obj = {};
+  return function (num) {
+    obj.date = new Date();
+    obj.output = func(num);
+    return obj;
+  };
+}
+
+// /*** Uncomment these to check your work! ***/
+const stampedMultBy2 = dateStamp((n) => n * 2);
+// console.log(stampedMultBy2(4)); // => should log { date: (today's date), output: 8 }
+// console.log(stampedMultBy2(6)); // => should log { date: (today's date), output: 12 }
+
+// Challenge 12
+// Create a function censor that accepts no arguments. censor will return a function that will accept either two strings, or one string. When
+// two strings are given, the returned function will hold onto the two strings as a pair, for future use. When one string is given, the returned
+// function will return the same string, except all instances of first strings (of saved pairs) will be replaced with their corresponding second
+// strings (of those saved pairs).
+
+function censor() {
+  // create const obj, assign it to the empty obj;
+  // create const str, assign it to the empty str;
+  //return function with two parameters named str1 and str2
+  //if both str1 and str2 are true
+  // the key of the obj will become the str1, and assign the value to the obj to str2
+  // return;
+  //if str2 is stickly equals to undefined
+  //create a for loop for the obj
+  //create a for loop for the str1
+  //if the key of the obj is stickly equal to str1 at index i, reassign str to str plus the value of obj
+  //else reassign str to str plus str1 at index i,
+  //return str
+
+  const obj = {};
+  return function (str1, str2) {
+    if (str1 && str2) {
+      obj[str1] = str2;
+    }
+    //console.log(obj)
+    if (!str2) {
+      for (let key in obj) {
+        str1 = str1.replace(key, obj[key]);
+      }
+      return str1;
+    }
+  };
+}
+
+// /*** Uncomment these to check your work! ***/
+const changeScene = censor();
+changeScene("dogs", "cats");
+changeScene("quick", "slow");
+console.log(changeScene("The quick, brown fox jumps over the lazy dogs.")); // => should log 'The slow, brown fox jumps over the lazy cats.'
+
+// CHALLENGE 13
+
+// There's no such thing as private properties on a JavaScript object! But, maybe there are? Implement a function createSecretHolder(secret) which
+// accepts any value as secret and returns an object with ONLY two methods. getSecret() which returns the secret setSecret() which sets the secret
+
+function createSecretHolder(secret) {}
+
+// /*** Uncomment these to check your work! ***/
+// obj = createSecretHolder(5)
+// obj.getSecret() // => returns 5
+// obj.setSecret(2)
+// obj.getSecret() // => returns 2
+
+// CHALLENGE 14
+
+// Write a function, callTimes, that returns a new function. The new function should return the number of times it’s been called.
+
+function callTimes() {}
+
+// /*** Uncomment these to check your work! ***/
+// let myNewFunc1 = callTimes();
+// let myNewFunc2 = callTimes();
+// myNewFunc1(); // => 1
+// myNewFunc1(); // => 2
+// myNewFunc2(); // => 1
+// myNewFunc2(); // => 2
+
+// CHALLENGE 15
+
+// Create a function russianRoulette that accepts a number (let us call it n), and returns a function. The returned function will take no arguments, and will
+// return the string 'click' the first n - 1 number of times it is invoked. On the very next invocation (the nth invocation), the returned function will
+// return the string 'bang'. On every invocation after that, the returned function returns the string 'reload to play again'.
+
+function russianRoulette(num) {}
+
+// /*** Uncomment these to check your work! ***/
+// const play = russianRoulette(3);
+// console.log(play()); // => should log 'click'
+// console.log(play()); // => should log 'click'
+// console.log(play()); // => should log 'bang'
+// console.log(play()); // => should log 'reload to play again'
+// console.log(play()); // => should log 'reload to play again'
+
+// CHALLENGE 16
+
+// Create a function average that accepts no arguments, and returns a function (that will accept either a number as its lone argument, or no arguments at all).
+//  When the returned function is invoked with a number, the output should be average of all the numbers have ever been passed into that function (duplicate
+//     numbers count just like any other number). When the returned function is invoked with no arguments, the current average is outputted. If the returned
+//     function is invoked with no arguments before any numbers are passed in, then it should return 0.
+function average() {}
+
+// /*** Uncomment these to check your work! ***/
+// const avgSoFar = average();
+// console.log(avgSoFar()); // => should log 0
+// console.log(avgSoFar(4)); // => should log 4
+// console.log(avgSoFar(8)); // => should log 6
+// console.log(avgSoFar()); // => should log 6
+// console.log(avgSoFar(12)); // => should log 8
+// console.log(avgSoFar()); // => should log 8
+
+// CHALLENGE 17
+
+// Create a function makeFuncTester that accepts an array (of two-element sub-arrays), and returns a function (that will accept a callback). The returned
+// function should return true if the first elements (of each sub-array) being passed into the callback all yield the corresponding second elements
+// (of the same sub-array). Otherwise, the returned function should return false.
+
+function makeFuncTester(arrOfTests) {}
+
+// /*** Uncomment these to check your work! ***/
+// const capLastTestCases = [];
+// capLastTestCases.push(['hello', 'hellO']);
+// capLastTestCases.push(['goodbye', 'goodbyE']);
+// capLastTestCases.push(['howdy', 'howdY']);
+// const shouldCapitalizeLast = makeFuncTester(capLastTestCases);
+// const capLastAttempt1 = str => str.toUpperCase();
+// const capLastAttempt2 = str => str.slice(0, -1) + str.slice(-1).toUpperCase();
+// console.log(shouldCapitalizeLast(capLastAttempt1)); // => should log false
+// console.log(shouldCapitalizeLast(capLastAttempt2)); // => should log true
+
+// CHALLENGE 18
+
+// Create a function makeHistory that accepts a number (which will serve as a limit), and returns a function (that will accept a string). The returned function
+// will save a history of the most recent "limit" number of strings passed into the returned function (one per invocation only). Every time a string is passed
+// into the function, the function should return that same string with the word 'done' after it (separated by a space). However, if the string 'undo' is passed
+// into the function, then the function should delete the last action saved in the history, and return that deleted string with the word 'undone' after
+// (separated by a space). If 'undo' is passed into the function and the function's history is empty, then the function should return the string 'nothing
+// to undo'.
+
+function makeHistory(limit) {}
+
+// /*** Uncomment these to check your work! ***/
+// const myActions = makeHistory(2);
+// console.log(myActions('jump')); // => should log 'jump done'
+// console.log(myActions('undo')); // => should log 'jump undone'
+// console.log(myActions('walk')); // => should log 'walk done'
+// console.log(myActions('code')); // => should log 'code done'
+// console.log(myActions('pose')); // => should log 'pose done'
+// console.log(myActions('undo')); // => should log 'pose undone'
+// console.log(myActions('undo')); // => should log 'code undone'
+// console.log(myActions('undo')); // => should log 'nothing to undo'
+
+// CHALLENGE 19
+
+/*Inspect the commented out test cases carefully if you need help to understand these instructions.
+
+Create a function blackjack that accepts an array (which will contain numbers ranging from 1 through 11), and returns a DEALER function. 
+The DEALER function will take two arguments (both numbers), and then return yet ANOTHER function, which we will call the PLAYER function.
+
+On the FIRST invocation of the PLAYER function, it wilsl return the sum of the two numbers passed into the DEALER function.
+On the SECOND invocation of the PLAYER function, it will return either
+1. the first number in the array that was passed into blackjack PLUS the sum of the two numbers passed in as arguments into the DEALER function, 
+IF that sum is 21 or below, OR
+
+2. the string 'bust' if that sum is over 21.
+
+If it is 'bust', then every invocation of the PLAYER function AFTER THAT will return the string 'you are done!' (but unlike 'bust', the 'you are done!' 
+output will NOT use a number in the array). If it is NOT 'bust', then the next invocation of the PLAYER function will return either:
+
+1. the most recent sum plus the next number in the array (a new sum) if that new sum is 21 or less, OR
+2. he string 'bust' if the new sum is over 21.
+
+And again, if it is 'bust', then every subsequent invocation of the PLAYER function will return the string 'you are done!'. Otherwise, it can continue 
+on to give the next sum with the next number in the array, and so forth.
+
+You may assume that the given array is long enough to give a 'bust' before running out of numbers.
+
+BONUS: Implement blackjack so the DEALER function can return more PLAYER functions that will each continue to take the next number in the array 
+after the previous PLAYER function left off. You will just need to make sure the array has enough numbers for all the PLAYER functions.
+*/
+
+function blackjack(array) {}
+
+// /*** Uncomment these to check your work! ***/
+
+// /*** DEALER ***/
+// const deal = blackjack([2, 6, 1, 7, 11, 4, 6, 3, 9, 8, 9, 3, 10, 4, 5, 3, 7, 4, 9, 6, 10, 11]);
+
+// /*** PLAYER 1 ***/
+// const i_like_to_live_dangerously = deal(4, 5);
+// console.log(i_like_to_live_dangerously()); // => should log 9
+// console.log(i_like_to_live_dangerously()); // => should log 11
+// console.log(i_like_to_live_dangerously()); // => should log 17
+// console.log(i_like_to_live_dangerously()); // => should log 18
+// console.log(i_like_to_live_dangerously()); // => should log 'bust'
+// console.log(i_like_to_live_dangerously()); // => should log 'you are done!'
+// console.log(i_like_to_live_dangerously()); // => should log 'you are done!'
+
+// /*** BELOW LINES ARE FOR THE BONUS ***/
+
+// /*** PLAYER 2 ***/
+// const i_TOO_like_to_live_dangerously = deal(2, 2);
+// console.log(i_TOO_like_to_live_dangerously()); // => should log 4
+// console.log(i_TOO_like_to_live_dangerously()); // => should log 15
+// console.log(i_TOO_like_to_live_dangerously()); // => should log 19
+// console.log(i_TOO_like_to_live_dangerously()); // => should log 'bust'
+// console.log(i_TOO_like_to_live_dangerously()); // => should log 'you are done!
+// console.log(i_TOO_like_to_live_dangerously()); // => should log 'you are done!
+
+// /*** PLAYER 3 ***/
+// const i_ALSO_like_to_live_dangerously = deal(3, 7);
+// console.log(i_ALSO_like_to_live_dangerously()); // => should log 10
+// console.log(i_ALSO_like_to_live_dangerously()); // => should log 13
+// console.log(i_ALSO_like_to_live_dangerously()); // => should log 'bust'
+// console.log(i_ALSO_like_to_live_dangerously()); // => should log 'you are done!
+// console.log(i_ALSO_like_to_live_dangerously()); // => should log 'you are done!
