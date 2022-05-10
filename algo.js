@@ -771,3 +771,5 @@ function blackjack(array) {}
 // console.log(i_ALSO_like_to_live_dangerously()); // => should log 'bust'
 // console.log(i_ALSO_like_to_live_dangerously()); // => should log 'you are done!
 // console.log(i_ALSO_like_to_live_dangerously()); // => should log 'you are done!
+
+// test
