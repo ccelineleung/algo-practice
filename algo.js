@@ -135,10 +135,10 @@ function pathFinder(obj, arr, i = 0) {
   return pathFinder(obj, arr, i);
 }
 
-const obj = {
-  first: { second: { third: "finish" } },
-  second: { third: "wrong" },
-};
+// const obj = {
+//   first: { second: { third: "finish" } },
+//   second: { third: "wrong" },
+// };
 const arr = ["first", "second", "third"];
 // console.log(pathFinder(obj, arr));   //-> "finish"
 
@@ -604,20 +604,37 @@ function censor() {
 const changeScene = censor();
 changeScene("dogs", "cats");
 changeScene("quick", "slow");
-console.log(changeScene("The quick, brown fox jumps over the lazy dogs.")); // => should log 'The slow, brown fox jumps over the lazy cats.'
+// console.log(changeScene("The quick, brown fox jumps over the lazy dogs.")); // => should log 'The slow, brown fox jumps over the lazy cats.'
 
 // CHALLENGE 13
 
 // There's no such thing as private properties on a JavaScript object! But, maybe there are? Implement a function createSecretHolder(secret) which
 // accepts any value as secret and returns an object with ONLY two methods. getSecret() which returns the secret setSecret() which sets the secret
 
-function createSecretHolder(secret) {}
+function createSecretHolder(secret) {
+  // create variable to store secret
+  // returning an object that has two method
+  // one is getSecret which return the variable in closure
+  // second is setSecret which reassign the variable in closure
+  let secretKey = secret;
+
+  const obj = {
+    getSecret: function () {
+      return secretKey;
+    },
+    setSecret: function (newSecret) {
+      secretKey = newSecret;
+    },
+  };
+
+  return obj;
+}
 
 // /*** Uncomment these to check your work! ***/
-// obj = createSecretHolder(5)
-// obj.getSecret() // => returns 5
-// obj.setSecret(2)
-// obj.getSecret() // => returns 2
+const obj = createSecretHolder(5);
+console.log(obj.getSecret()); // => returns 5
+obj.setSecret(2);
+console.log(obj.getSecret()); // => returns 2
 
 // CHALLENGE 14
 
