@@ -631,24 +631,34 @@ function createSecretHolder(secret) {
 }
 
 // /*** Uncomment these to check your work! ***/
-const obj = createSecretHolder(5);
-console.log(obj.getSecret()); // => returns 5
-obj.setSecret(2);
-console.log(obj.getSecret()); // => returns 2
+// const obj = createSecretHolder(5);
+// console.log(obj.getSecret()); // => returns 5
+// obj.setSecret(2);
+// console.log(obj.getSecret()); // => returns 2
 
 // CHALLENGE 14
 
 // Write a function, callTimes, that returns a new function. The new function should return the number of times it’s been called.
 
-function callTimes() {}
+function callTimes() {
+  //declear a variable named count, assign it to 0
+  //return function with no parameter
+  //increment the count by 1
+  //return count
+  let count = 0;
+  return function () {
+    count += 1;
+    return count;
+  };
+}
 
 // /*** Uncomment these to check your work! ***/
-// let myNewFunc1 = callTimes();
-// let myNewFunc2 = callTimes();
-// myNewFunc1(); // => 1
-// myNewFunc1(); // => 2
-// myNewFunc2(); // => 1
-// myNewFunc2(); // => 2
+let myNewFunc1 = callTimes();
+let myNewFunc2 = callTimes();
+// console.log(myNewFunc1()); // => 1
+// console.log(myNewFunc1()); // => 2
+// console.log(myNewFunc2()); // => 1
+// console.log(myNewFunc2()); // => 2
 
 // CHALLENGE 15
 
@@ -656,10 +666,28 @@ function callTimes() {}
 // return the string 'click' the first n - 1 number of times it is invoked. On the very next invocation (the nth invocation), the returned function will
 // return the string 'bang'. On every invocation after that, the returned function returns the string 'reload to play again'.
 
-function russianRoulette(num) {}
+function russianRoulette(num) {
+  //declear variable named times, assign it to 0;
+  //return function with no argu
+  //if times is less than num, increment i by 1, return `click`
+  //else if times is equal to num, increment i by 1, return `bang`
+  //else increment i by 1, return `reload to play again`
+
+  let times = 0;
+  return function () {
+    times += 1;
+    if (times < num) {
+      return `click`;
+    } else if (times === num) {
+      return `bang`;
+    } else {
+      return `reload to play again`;
+    }
+  };
+}
 
 // /*** Uncomment these to check your work! ***/
-// const play = russianRoulette(3);
+const play = russianRoulette(3);
 // console.log(play()); // => should log 'click'
 // console.log(play()); // => should log 'click'
 // console.log(play()); // => should log 'bang'
@@ -672,16 +700,39 @@ function russianRoulette(num) {}
 //  When the returned function is invoked with a number, the output should be average of all the numbers have ever been passed into that function (duplicate
 //     numbers count just like any other number). When the returned function is invoked with no arguments, the current average is outputted. If the returned
 //     function is invoked with no arguments before any numbers are passed in, then it should return 0.
-function average() {}
+function average() {
+  //declear variable named count, assign it to 0
+  //declear variable named sum;
+  //declear avg and assign it to 0;
+  // return function with one argu named num or no argu
+  //if num is undefined,  increment i by 1; return avg;
+  //else , increment i by 1, reassign sum equals to sum plus nun, reassign avg equals to sum / count; return avg
+
+  let count = 0;
+  let sum = 0;
+  let avg = 0;
+
+  return function (num) {
+    if (!num) {
+      return avg;
+    } else {
+      count += 1;
+      sum = sum + num;
+      avg = sum / count;
+      console.log(sum, avg, count);
+      return avg;
+    }
+  };
+}
 
 // /*** Uncomment these to check your work! ***/
-// const avgSoFar = average();
-// console.log(avgSoFar()); // => should log 0
-// console.log(avgSoFar(4)); // => should log 4
-// console.log(avgSoFar(8)); // => should log 6
-// console.log(avgSoFar()); // => should log 6
-// console.log(avgSoFar(12)); // => should log 8
-// console.log(avgSoFar()); // => should log 8
+const avgSoFar = average();
+console.log(avgSoFar()); // => should log 0
+console.log(avgSoFar(4)); // => should log 4
+console.log(avgSoFar(8)); // => should log 6
+console.log(avgSoFar()); // => should log 6
+console.log(avgSoFar(12)); // => should log 8
+console.log(avgSoFar()); // => should log 8
 
 // CHALLENGE 17
 
@@ -689,7 +740,22 @@ function average() {}
 // function should return true if the first elements (of each sub-array) being passed into the callback all yield the corresponding second elements
 // (of the same sub-array). Otherwise, the returned function should return false.
 
-function makeFuncTester(arrOfTests) {}
+function makeFuncTester(arrOfTests) {
+  //return function with one paramter named cb
+  //loop through the arrOfTests, name each array inside the arrOfTests as element
+  //loop through element,
+  // if the evaluted result of invoking function cb passing in element at index i is stickly equals to element at index i + 1, return true
+  // else return false
+
+  return function (cb) {
+    for (let element of arrOfTests) {
+      for (let i = 0; i < element.length; i++) {
+        if (cb(element[i]) === element[i + 1]) return true;
+        else return false;
+      }
+    }
+  };
+}
 
 // /*** Uncomment these to check your work! ***/
 // const capLastTestCases = [];
@@ -711,7 +777,18 @@ function makeFuncTester(arrOfTests) {}
 // (separated by a space). If 'undo' is passed into the function and the function's history is empty, then the function should return the string 'nothing
 // to undo'.
 
-function makeHistory(limit) {}
+function makeHistory(limit) {
+  //create variable named history;
+  //creat variable named count, ans assign it to 0
+  // create variable named storeVal;
+  //return function with one parameter named str
+  // increment count by 1;
+  //if str is not stickly equal to undo,
+  //reassign history to str, reassign result to str, return str + `done`;
+  //else if str is stricly equal to undo,
+  // return result + `undone`
+  //else if
+}
 
 // /*** Uncomment these to check your work! ***/
 // const myActions = makeHistory(2);
