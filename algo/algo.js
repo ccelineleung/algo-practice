@@ -787,19 +787,39 @@ function makeHistory(limit) {
   //reassign history to str, reassign result to str, return str + `done`;
   //else if str is stricly equal to undo,
   // return result + `undone`
-  //else if
+  let count = 0;
+  let previous;
+  let result;
+  return function (str) {
+   
+    if (str !== `undo` ) {
+      count -= 1;
+      previous = result;
+      result = str;
+      return str + ` done`
+    } 
+    if (str === `undo`) {
+      count += 1;
+      if (count < limit) {
+      return result + ` undone`
+      } else if (count === limit) {
+      console.log(`previous`,previous)
+      return previous + ` undone`
+      } else return `nothing to undo`
+    }
+  }
 }
 
 // /*** Uncomment these to check your work! ***/
-// const myActions = makeHistory(2);
-// console.log(myActions('jump')); // => should log 'jump done'
-// console.log(myActions('undo')); // => should log 'jump undone'
-// console.log(myActions('walk')); // => should log 'walk done'
-// console.log(myActions('code')); // => should log 'code done'
-// console.log(myActions('pose')); // => should log 'pose done'
-// console.log(myActions('undo')); // => should log 'pose undone'
-// console.log(myActions('undo')); // => should log 'code undone'
-// console.log(myActions('undo')); // => should log 'nothing to undo'
+const myActions = makeHistory(2);
+console.log(myActions("jump")); // => should log 'jump done'
+console.log(myActions("undo")); // => should log 'jump undone'
+console.log(myActions("walk")); // => should log 'walk done'
+console.log(myActions("code")); // => should log 'code done'
+console.log(myActions("pose")); // => should log 'pose done'
+console.log(myActions("undo")); // => should log 'pose undone'
+console.log(myActions("undo")); // => should log 'code undone'
+console.log(myActions("undo")); // => should log 'nothing to undo'
 
 // CHALLENGE 19
 
