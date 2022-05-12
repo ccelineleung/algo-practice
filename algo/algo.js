@@ -778,36 +778,38 @@ function makeFuncTester(arrOfTests) {
 // to undo'.
 
 function makeHistory(limit) {
-  //create variable named history;
-  //creat variable named count, ans assign it to 0
-  // create variable named storeVal;
+  //create an empty array named storedStr;
   //return function with one parameter named str
-  // increment count by 1;
-  //if str is not stickly equal to undo,
-  //reassign history to str, reassign result to str, return str + `done`;
-  //else if str is stricly equal to undo,
-  // return result + `undone`
-  let count = 0;
-  let previous;
-  let result;
+  // if the length of storedStr is stictly equal to limit, then shift the array storeStr
+  // if str is not stictly equal to `undo`;
+  //push the str to storedStr
+  //return str + ` done`
+  //else if str is stictly equal to `undo`
+  //create varaible named delet, and assign the value to storedStr at index length of storedStr - 1
+  //pop the storedStr
+  //return delet + ` undone`
+  // if storedStr at index 0 is undefined, return  'nothing to undo'
+
+  const storedStr = [];
   return function (str) {
-   
-    if (str !== `undo` ) {
-      count -= 1;
-      previous = result;
-      result = str;
-      return str + ` done`
-    } 
-    if (str === `undo`) {
-      count += 1;
-      if (count < limit) {
-      return result + ` undone`
-      } else if (count === limit) {
-      console.log(`previous`,previous)
-      return previous + ` undone`
-      } else return `nothing to undo`
+    if (storedStr.length > limit) {
+      storedStr.shift();
     }
-  }
+    // console.log(storedStr)
+    if (str !== "undo") {
+      storedStr.push(str);
+      // console.log(storedStr)
+      return str + " done";
+    } else {
+      if (storedStr[0] === undefined) {
+        return `nothing to undo`;
+      } else {
+        const delet = storedStr[storedStr.length - 1];
+        storedStr.pop();
+        return delet + ` undone`;
+      }
+    }
+  };
 }
 
 // /*** Uncomment these to check your work! ***/
