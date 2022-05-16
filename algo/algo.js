@@ -135,10 +135,10 @@ function pathFinder(obj, arr, i = 0) {
   return pathFinder(obj, arr, i);
 }
 
-const obj = {
-  first: { second: { third: "finish" } },
-  second: { third: "wrong" },
-};
+// const obj = {
+//   first: { second: { third: "finish" } },
+//   second: { third: "wrong" },
+// };
 const arr = ["first", "second", "third"];
 // console.log(pathFinder(obj, arr));   //-> "finish"
 
@@ -604,34 +604,61 @@ function censor() {
 const changeScene = censor();
 changeScene("dogs", "cats");
 changeScene("quick", "slow");
-console.log(changeScene("The quick, brown fox jumps over the lazy dogs.")); // => should log 'The slow, brown fox jumps over the lazy cats.'
+// console.log(changeScene("The quick, brown fox jumps over the lazy dogs.")); // => should log 'The slow, brown fox jumps over the lazy cats.'
 
 // CHALLENGE 13
 
 // There's no such thing as private properties on a JavaScript object! But, maybe there are? Implement a function createSecretHolder(secret) which
 // accepts any value as secret and returns an object with ONLY two methods. getSecret() which returns the secret setSecret() which sets the secret
 
-function createSecretHolder(secret) {}
+function createSecretHolder(secret) {
+  // create variable to store secret
+  // returning an object that has two method
+  // one is getSecret which return the variable in closure
+  // second is setSecret which reassign the variable in closure
+  let secretKey = secret;
+
+  const obj = {
+    getSecret: function () {
+      return secretKey;
+    },
+    setSecret: function (newSecret) {
+      secretKey = newSecret;
+    },
+  };
+
+  return obj;
+}
 
 // /*** Uncomment these to check your work! ***/
-// obj = createSecretHolder(5)
-// obj.getSecret() // => returns 5
-// obj.setSecret(2)
-// obj.getSecret() // => returns 2
+// const obj = createSecretHolder(5);
+// console.log(obj.getSecret()); // => returns 5
+// obj.setSecret(2);
+// console.log(obj.getSecret()); // => returns 2
 
 // CHALLENGE 14
 
 // Write a function, callTimes, that returns a new function. The new function should return the number of times it’s been called.
 
-function callTimes() {}
+function callTimes() {
+  //declear a variable named count, assign it to 0
+  //return function with no parameter
+  //increment the count by 1
+  //return count
+  let count = 0;
+  return function () {
+    count += 1;
+    return count;
+  };
+}
 
 // /*** Uncomment these to check your work! ***/
-// let myNewFunc1 = callTimes();
-// let myNewFunc2 = callTimes();
-// myNewFunc1(); // => 1
-// myNewFunc1(); // => 2
-// myNewFunc2(); // => 1
-// myNewFunc2(); // => 2
+let myNewFunc1 = callTimes();
+let myNewFunc2 = callTimes();
+// console.log(myNewFunc1()); // => 1
+// console.log(myNewFunc1()); // => 2
+// console.log(myNewFunc2()); // => 1
+// console.log(myNewFunc2()); // => 2
 
 // CHALLENGE 15
 
@@ -639,10 +666,28 @@ function callTimes() {}
 // return the string 'click' the first n - 1 number of times it is invoked. On the very next invocation (the nth invocation), the returned function will
 // return the string 'bang'. On every invocation after that, the returned function returns the string 'reload to play again'.
 
-function russianRoulette(num) {}
+function russianRoulette(num) {
+  //declear variable named times, assign it to 0;
+  //return function with no argu
+  //if times is less than num, increment i by 1, return `click`
+  //else if times is equal to num, increment i by 1, return `bang`
+  //else increment i by 1, return `reload to play again`
+
+  let times = 0;
+  return function () {
+    times += 1;
+    if (times < num) {
+      return `click`;
+    } else if (times === num) {
+      return `bang`;
+    } else {
+      return `reload to play again`;
+    }
+  };
+}
 
 // /*** Uncomment these to check your work! ***/
-// const play = russianRoulette(3);
+const play = russianRoulette(3);
 // console.log(play()); // => should log 'click'
 // console.log(play()); // => should log 'click'
 // console.log(play()); // => should log 'bang'
@@ -655,16 +700,39 @@ function russianRoulette(num) {}
 //  When the returned function is invoked with a number, the output should be average of all the numbers have ever been passed into that function (duplicate
 //     numbers count just like any other number). When the returned function is invoked with no arguments, the current average is outputted. If the returned
 //     function is invoked with no arguments before any numbers are passed in, then it should return 0.
-function average() {}
+function average() {
+  //declear variable named count, assign it to 0
+  //declear variable named sum;
+  //declear avg and assign it to 0;
+  // return function with one argu named num or no argu
+  //if num is undefined,  increment i by 1; return avg;
+  //else , increment i by 1, reassign sum equals to sum plus nun, reassign avg equals to sum / count; return avg
+
+  let count = 0;
+  let sum = 0;
+  let avg = 0;
+
+  return function (num) {
+    if (!num) {
+      return avg;
+    } else {
+      count += 1;
+      sum = sum + num;
+      avg = sum / count;
+      console.log(sum, avg, count);
+      return avg;
+    }
+  };
+}
 
 // /*** Uncomment these to check your work! ***/
-// const avgSoFar = average();
-// console.log(avgSoFar()); // => should log 0
-// console.log(avgSoFar(4)); // => should log 4
-// console.log(avgSoFar(8)); // => should log 6
-// console.log(avgSoFar()); // => should log 6
-// console.log(avgSoFar(12)); // => should log 8
-// console.log(avgSoFar()); // => should log 8
+const avgSoFar = average();
+console.log(avgSoFar()); // => should log 0
+console.log(avgSoFar(4)); // => should log 4
+console.log(avgSoFar(8)); // => should log 6
+console.log(avgSoFar()); // => should log 6
+console.log(avgSoFar(12)); // => should log 8
+console.log(avgSoFar()); // => should log 8
 
 // CHALLENGE 17
 
@@ -672,7 +740,22 @@ function average() {}
 // function should return true if the first elements (of each sub-array) being passed into the callback all yield the corresponding second elements
 // (of the same sub-array). Otherwise, the returned function should return false.
 
-function makeFuncTester(arrOfTests) {}
+function makeFuncTester(arrOfTests) {
+  //return function with one paramter named cb
+  //loop through the arrOfTests, name each array inside the arrOfTests as element
+  //loop through element,
+  // if the evaluted result of invoking function cb passing in element at index i is stickly equals to element at index i + 1, return true
+  // else return false
+
+  return function (cb) {
+    for (let element of arrOfTests) {
+      for (let i = 0; i < element.length; i++) {
+        if (cb(element[i]) === element[i + 1]) return true;
+        else return false;
+      }
+    }
+  };
+}
 
 // /*** Uncomment these to check your work! ***/
 // const capLastTestCases = [];
@@ -694,18 +777,51 @@ function makeFuncTester(arrOfTests) {}
 // (separated by a space). If 'undo' is passed into the function and the function's history is empty, then the function should return the string 'nothing
 // to undo'.
 
-function makeHistory(limit) {}
+function makeHistory(limit) {
+  //create an empty array named storedStr;
+  //return function with one parameter named str
+  // if the length of storedStr is stictly equal to limit, then shift the array storeStr
+  // if str is not stictly equal to `undo`;
+  //push the str to storedStr
+  //return str + ` done`
+  //else if str is stictly equal to `undo`
+  //create varaible named delet, and assign the value to storedStr at index length of storedStr - 1
+  //pop the storedStr
+  //return delet + ` undone`
+  // if storedStr at index 0 is undefined, return  'nothing to undo'
+
+  const storedStr = [];
+  return function (str) {
+    if (storedStr.length > limit) {
+      storedStr.shift();
+    }
+    // console.log(storedStr)
+    if (str !== "undo") {
+      storedStr.push(str);
+      // console.log(storedStr)
+      return str + " done";
+    } else {
+      if (storedStr[0] === undefined) {
+        return `nothing to undo`;
+      } else {
+        const delet = storedStr[storedStr.length - 1];
+        storedStr.pop();
+        return delet + ` undone`;
+      }
+    }
+  };
+}
 
 // /*** Uncomment these to check your work! ***/
-// const myActions = makeHistory(2);
-// console.log(myActions('jump')); // => should log 'jump done'
-// console.log(myActions('undo')); // => should log 'jump undone'
-// console.log(myActions('walk')); // => should log 'walk done'
-// console.log(myActions('code')); // => should log 'code done'
-// console.log(myActions('pose')); // => should log 'pose done'
-// console.log(myActions('undo')); // => should log 'pose undone'
-// console.log(myActions('undo')); // => should log 'code undone'
-// console.log(myActions('undo')); // => should log 'nothing to undo'
+const myActions = makeHistory(2);
+console.log(myActions("jump")); // => should log 'jump done'
+console.log(myActions("undo")); // => should log 'jump undone'
+console.log(myActions("walk")); // => should log 'walk done'
+console.log(myActions("code")); // => should log 'code done'
+console.log(myActions("pose")); // => should log 'pose done'
+console.log(myActions("undo")); // => should log 'pose undone'
+console.log(myActions("undo")); // => should log 'code undone'
+console.log(myActions("undo")); // => should log 'nothing to undo'
 
 // CHALLENGE 19
 
@@ -772,11 +888,17 @@ function blackjack(array) {}
 // console.log(i_ALSO_like_to_live_dangerously()); // => should log 'you are done!
 // console.log(i_ALSO_like_to_live_dangerously()); // => should log 'you are done!
 
+<<<<<<< HEAD:algo.js
 // Type JavaScript here and click "Run Code" or press Ctrl + s
 console.log("Hello, world!");
 
 // Challenge 1
 function addTwo(num) {
+=======
+// Challenge 1
+function addTwo(num) {
+  //return num plus two
+>>>>>>> fc423c0f781b04d910a8c0e734989ebfa6fefc6a:algo/algo.js
   return num + 2;
 }
 
@@ -794,6 +916,7 @@ function addS(word) {
 // console.log(addS('bagel'));
 
 // Challenge 3
+<<<<<<< HEAD:algo.js
 // function map(array, callback) {
 //   const result = [];
 //   for (let i = 0; i< array.length; i++){
@@ -819,6 +942,30 @@ function forEach(array, callback) {
 function mapWith(array, callback) {
   
 }
+=======
+function map(array, callback) {
+  //declear a new array named newArr, and assign it to the empty array
+  //loop through the array
+  //push the evluated result of inoking function callback passing in array at index i to the empty array
+  //return newArr
+
+  const newArr = [];
+  for (let i = 0; i < array.length; i++) {
+    newArr.push(callback(array[i]));
+  }
+  return newArr;
+}
+
+// console.log(map([1, 2, 3], addTwo));
+
+// Challenge 4
+function forEach(array, callback) {}
+ 
+// see for yourself if your forEach works!
+
+// Challenge 5
+function mapWith(array, callback) {}
+>>>>>>> fc423c0f781b04d910a8c0e734989ebfa6fefc6a:algo/algo.js
 
 // Challenge 6
 function reduce(array, callback, initialValue) {}
@@ -988,7 +1135,13 @@ function isOdd(num) {
 // console.log(myFunc(evens, isOdd)); // Output should be -1
 
 // Challenge 24
+<<<<<<< HEAD:algo.js
 // function myForEach(array, callback) {}
+=======
+// function myForEach(array, callback) {
+
+// }
+>>>>>>> fc423c0f781b04d910a8c0e734989ebfa6fefc6a:algo/algo.js
 
 // let sum = 0;
 
