@@ -867,13 +867,13 @@ function intersection(arrays) {
   console.log(firstResult);
 }
 
-console.log(
-  intersection([
-    [5, 10, 15, 20],
-    [15, 88, 1, 5, 7],
-    [1, 10, 15, 5, 20],
-  ])
-);
+// console.log(
+//   intersection([
+//     [5, 10, 15, 20],
+//     [15, 88, 1, 5, 7],
+//     [1, 10, 15, 5, 20],
+//   ])
+// );
 //should log: [5, 15]
 
 // Challenge 8h
