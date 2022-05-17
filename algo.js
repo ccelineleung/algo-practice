@@ -849,22 +849,19 @@ function intersection(arrays) {
   //if initial is included in arrays at index i at index j, push the arrays at index i at index j to firstResult
   // if firstResult is included in arrays at index j
 
-  // let initial = arrays.pop();
-  // //arrays.pop();
-  // console.log(arrays)
-  // const firstResult = [];
-  // const result = [];
-  for (let i = 1; i < arrays.length; i++) {
-    const comm = [];
+  const obj = {};
+  const result = [];
+  for (let i = 0; i < arrays.length; i++) {
     for (let j = 0; j < arrays[i].length; j++) {
-      if (initial.includes(arrays[i][j])) {
-        firstResult.push(arrays[i][j]);
-      }
+      obj[arrays[i][j]] ? (obj[arrays[i][j]] += 1) : (obj[arrays[i][j]] = 1);
     }
-
-    console.log(firstResult);
   }
-  console.log(firstResult);
+  for (let key in obj) {
+    if (obj[key] === arrays.length) {
+      result.push(Number(key));
+    }
+  }
+  return result;
 }
 
 // console.log(
@@ -878,23 +875,21 @@ function intersection(arrays) {
 
 // Challenge 8h
 function union(arrays) {
-  //create a empty array named result
-  //create a empty obj named obj;
-  //loop through the arrays
-  //loop through the element of the arrays
-  //assign the key of the obj to the element at index i, if the key is already exits, add the value by 1, if its not exits, we will assign the
-  //value to 1
-  //push the key of the obj to the empty array
-  //return the result
+  // declare empty array named result;
+  // loop through the arrays
+  // loop through the elements of arrays
+  // if element at index i is not includes in result, push element at index i into result
+  //return result
 
   const result = [];
-  const obj = {};
   for (let element of arrays) {
     for (let i = 0; i < element.length; i++) {
-      obj[element[i]] ? (obj[element[i]] += 1) : (obj[element[i]] = 1);
+      if (!result.includes(element[i])) {
+        result.push(element[i]);
+      }
     }
   }
-  console.log(obj);
+  return result;
 }
 
 // console.log(
@@ -907,19 +902,67 @@ function union(arrays) {
 // should log: [5, 10, 15, 88, 1, 7, 100]
 
 // Challenge 9
-function objOfMatches(array1, array2, callback) {}
+function objOfMatches(array1, array2, callback) {
+  //declear empty obj named obj
+  //loop through array1
+  // if the evaluated result of inovking function callback passing in array1 at index i is strictly equals to array2 at index i,
+  //then the key of the obj would be array1 at index i and the corresponding value would array2 at index i
+  // return obj
+
+  const obj = {};
+  for (let i = 0; i < array1.length; i++) {
+    if (callback(array1[i]) === array2[i]) {
+      obj[array1[i]] = array2[i];
+    }
+  }
+  return obj;
+}
 
 // console.log(objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy', 'BYE', 'LATER', 'hello'], function(str) { return str.toUpperCase(); }));
 // should log: { hi: 'HI', bye: 'BYE', later: 'LATER' }
 
 // Challenge 10
-function multiMap(arrVals, arrCallbacks) {}
+function multiMap(arrVals, arrCallbacks) {
+  // declare empty obj named obj;
+  // declare an empty array named arr;
+  // loop through the arrVals
+  // loop through arrCallbacks
+  // push the result of evlated result of invoking function arrCallbacks at index i passing in arrVals at index i
+  // the key of the obj should be arrVals at index i , and the value of the obj  is the arr
+  //return obj
+
+  const obj = {};
+
+  for (let i = 0; i < arrVals.length; i++) {
+    const arr = [];
+    for (let j = 0; j < arrCallbacks.length; j++) {
+      arr.push(arrCallbacks[j](arrVals[i]));
+      console.log(arrCallbacks[j](arrVals[i]));
+      obj[arrVals[i]] = arr;
+    }
+  }
+  return obj;
+}
 
 // console.log(multiMap(['catfood', 'glue', 'beer'], [function(str) { return str.toUpperCase(); }, function(str) { return str[0].toUpperCase() + str.slice(1).toLowerCase(); }, function(str) { return str + str; }]));
 // should log: { catfood: ['CATFOOD', 'Catfood', 'catfoodcatfood'], glue: ['GLUE', 'Glue', 'glueglue'], beer: ['BEER', 'Beer', 'beerbeer'] }
 
 // Challenge 11
-function objectFilter(obj, callback) {}
+function objectFilter(obj, callback) {
+  //create an empty obj named newObj;
+  //loop through the obj;
+    //if the evluated result of invoking function callback passing in the key is stictly equal to the value of the obj;
+    //assign the key of newObj to the key of obj, and the value of the newObj to value of obj
+  //return newObj
+
+  const newObj = {};
+  for (let key in obj){
+    if (callback(key) === obj[key]){
+      newObj[key] = obj[key]
+    }
+  }
+return newObj
+}
 
 // const cities = {
 // London: 'LONDON',
