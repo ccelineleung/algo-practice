@@ -972,7 +972,15 @@ function objectFilter(obj, callback) {
 // console.log(objectFilter(cities, city => city.toUpperCase())) // Should log { London: 'LONDON', Paris: 'PARIS'}
 
 // Challenge 12
-function majority(array, callback) {}
+function majority(array, callback) {
+  let odd = 0;
+  let even = 0;
+  for (let i = 0; i < array.length; i++) {
+    callback(array[i]) ? (odd += 1) : (even += 1);
+  }
+  if (odd > even) return true;
+  else return false;
+}
 
 // /*** Uncomment these to check your work! ***/
 // const isOdd = function(num) { return num % 2 === 1; };
@@ -1020,7 +1028,20 @@ function countBy(array, callback) {}
 function groupBy(array, callback) {
   //create an empty object named obj;
   //loop through the array
-  //if the result of invoking function callback passing in array at index i, this would be the key variable and t
+  //the result of invoking function callback passing in array at index i, this would be the key variable in the obj,
+  //if the value of the corrosponding key in obj doesnot exist, we will push the key into an empty array
+  // if it is already exist, push the key into the existing array
+  //return obj
+
+  const obj = {};
+  for (let element of array) {
+    if (!obj[callback(element)]) {
+      obj[callback(element)] = [element];
+    } else {
+      obj[callback(element)].push(element);
+    }
+  }
+  return obj;
 }
 
 // /*** Uncomment these to check your work! ***/
@@ -1029,7 +1050,20 @@ function groupBy(array, callback) {
 // console.log(groupBy(decimals, floored)); // should log: { 1: [1.3], 2: [2.1, 2.4] }
 
 // Challenge 16
-function goodKeys(obj, callback) {}
+function goodKeys(obj, callback) {
+  //create an empty array named arr
+  //loop through the obj
+  //if the evoluated result of invoking function callback passing in obj with variable key is true, push the key into the empty arr
+  //return arr
+
+  const arr = [];
+  for (let key in obj) {
+    if (callback(obj[key])) {
+      arr.push(key);
+    }
+  }
+  return arr;
+}
 
 // /*** Uncomment these to check your work! ***/
 // const sunny = { mac: 'priest', dennis: 'calculating', charlie: 'birdlaw', dee: 'bird', frank: 'warthog' };
@@ -1037,7 +1071,22 @@ function goodKeys(obj, callback) {}
 // console.log(goodKeys(sunny, startsWithBird)); // should log: ['charlie', 'dee']
 
 // Challenge 17
-function commutative(func1, func2, value) {}
+function commutative(func1, func2, value) {
+  // declare variable named firstResult, assign it to the result of invoking function func1 passing in value
+  // declare variable named firstResultFinal, assign it to the result of invoking function func2 passing in firstResult;
+  //declare variable named secondResult, assign it to the result of invoking function func2 passing in value
+  //declare variable named secondResultFinal, assign it to the result of invoking function func1 passing in secondResult;
+  //if firstResultFinal is stictly equals to secondResultFinal, return true
+  //else return false
+
+  let firstResult = func1(value);
+  let firstResultFinal = func2(firstResult);
+  let secondResult = func2(value);
+  let secondResultFinal = func1(secondResult);
+
+  if (firstResultFinal === secondResultFinal) return true;
+  else return false;
+}
 
 // /*** Uncomment these to check your work! ***/
 // const multBy3 = n => n * 3;
@@ -1048,7 +1097,24 @@ function commutative(func1, func2, value) {}
 // console.log(commutative(divBy4, subtract5, 48)); // should log: false
 
 // Challenge 18
-function objFilter(obj, callback) {}
+function objFilter(obj, callback) {
+  //input: obj,func
+  //output: obj
+  //create an empty object called obj
+  //loop through obj
+  // if statement: if evaluated result of invoking function cb, passing in key, is strictly equals to the
+  // value of obj with key variable is true
+  // store both the key and value into obj
+  // return obj
+  const object = {};
+  for (let key in obj) {
+    if (callback(key) === obj[key]) {
+      // assign the value of object at key variable to the result of passing in key to callback
+      object[key] = callback(key);
+    }
+  }
+  return object;
+}
 
 // /*** Uncomment these to check your work! ***/
 // const startingObj = {};
@@ -1058,8 +1124,27 @@ function objFilter(obj, callback) {}
 // const half = n => n / 2;
 // console.log(objFilter(startingObj, half)); // should log: { 2: 1, 6: 3 }
 
+// Create a function rating that accepts an array (of functions) and a value. All the functions in the array will return true or false. rating
+// should return the percentage of functions from the array that return true when the value is used as input.
+
 // Challenge 19
-function rating(arrOfFuncs, value) {}
+function rating(arrOfFuncs, value) {
+  // create a variable named trueResult and assign it to zero
+  // loop through arrOfFuncs
+  // if statement: result of invoking arrOfFuncs at index 1 passing in value is true
+  // reassign trueResult to trueResult + 1
+  // store trueResult divide by the length of array * 100 into a variable called result
+  // return result
+  let trueResult = 0;
+  for (let element of arrOfFuncs) {
+    if (element(value)) {
+      trueResult += 1;
+    }
+  }
+  const result = (trueResult / arrOfFuncs.length) * 100;
+  return result;
+  // return trueResult / arrOfFuncs.length * 100
+}
 
 // /*** Uncomment these to check your work! ***/
 // const isEven = n => n % 2 === 0;
@@ -1179,15 +1264,15 @@ console.log(nextAuthorsGenre()) //-> Romance
 //increment the count by 1
 // return result
 
-// function itemRetriever (array, str) {
-//   let result;
-//   let count = 0;
-//   return function () {
-//     result = array[count][str]
-//     count += 1;
-//     return result
-//   }
-// }
+function itemRetriever(array, str) {
+  let result;
+  let count = 0;
+  return function () {
+    result = array[count][str];
+    count += 1;
+    return result;
+  };
+}
 
 //input: array of objs, 'key'
 //output: str or num
@@ -1205,18 +1290,6 @@ console.log(nextAuthorsGenre()) //-> Romance
 //declare index variable , assign to 0
 // return array of objs at the given index and key
 // increment the index
-
-// const favoriteAuthors = [
-//   { name: "Earnest Hemingway", age: 50, genre: "Classics" },
-//   { name: "Agatha Christie", age: 57, genre: "Romance" },
-//   { name: "J.K. Rowling", age: 26, genre: "Fantasy" },
-//   { name: "Steven King", age: 85, genre: "Horrors" },
-// ];
-// const nextAuthor = itemRetriever(favoriteAuthors, "name");
-// console.log(nextAuthor()) //-> 'Earnest Hemingway'
-// console.log(nextAuthor()) //-> 'Agatha Christie'
-// console.log(nextAuthor()) //-> ''J.K. Rowling'
-// console.log(nextAuthor()) //-> 'Steven King'
 
 /*
 Write a function called 'balancedBrackets' that takes a string of text and returns true if the parentheses are balanced and false otherwise.
@@ -1238,31 +1311,21 @@ balancedBrackets(" isThisAFunction?() { notReally();");  // -> false
 
 // Declare function named balancedBrackets that accepts a string
 function balancedBrackets(str) {
+  //create an empty array named arr
+  // loop through the str
+  //if str at index i is stictly equal to the closing brackets, return false
+  // else if we see the opening prentance, push str at index i into the arr
+  //else if we see the closing prentance, pop the arr
+
   const arr = [];
-
   for (let i = 0; i < str.length; i++) {
-    //IF - we see a closing bracket
-    // if(str[i] === '}' || str[i] === ']' || str[i] === ')'){
-    // // return false
-    // console.log(str[i])
-    // return false;
-    // }
-
-    // IF - we see an opening bracket
-    if (str[i] === "{" || str[i] === "[" || str[i] === "(") {
-      // Push bracket into empty array
+    if (str[i] === "(" || str[i] === "{" || str[i] === "[") {
       arr.push(str[i]);
-    } else if (str[i] === "}" || str[i] === "]" || str[i] === ")") {
+    } else if (str[i] === ")" || str[i] === "}" || str[i] === "]") {
       arr.pop();
     }
-
-    // IF - array empty
-    if (arr[i] === undefined) {
-      // return true
-      return true;
-    }
   }
-
+  if (arr[0] === undefined) return true;
   return false;
 }
 
