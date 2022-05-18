@@ -951,17 +951,17 @@ function multiMap(arrVals, arrCallbacks) {
 function objectFilter(obj, callback) {
   //create an empty obj named newObj;
   //loop through the obj;
-    //if the evluated result of invoking function callback passing in the key is stictly equal to the value of the obj;
-    //assign the key of newObj to the key of obj, and the value of the newObj to value of obj
+  //if the evluated result of invoking function callback passing in the key is stictly equal to the value of the obj;
+  //assign the key of newObj to the key of obj, and the value of the newObj to value of obj
   //return newObj
 
   const newObj = {};
-  for (let key in obj){
-    if (callback(key) === obj[key]){
-      newObj[key] = obj[key]
+  for (let key in obj) {
+    if (callback(key) === obj[key]) {
+      newObj[key] = obj[key];
     }
   }
-return newObj
+  return newObj;
 }
 
 // const cities = {
@@ -980,7 +980,27 @@ function majority(array, callback) {}
 // console.log(majority([2, 3, 4, 5], isOdd)); // should log: false
 
 // Challenge 13
-function prioritize(array, callback) {}
+function prioritize(array, callback) {
+  // create an empty array named withS
+  // create an empty array name withoutS
+  // Loop through array
+  // if statement: if evaluated result of invoking callback passing in array at index i is true
+  // push array at index i to array withS
+  // else push to array withoutS
+  // create an array named result assign it to array withS to concat with array withoutS
+  // return result
+  const withS = [];
+  const withoutS = [];
+  for (let i = 0; i < array.length; i += 1) {
+    if (callback(array[i])) {
+      withS.push(array[i]);
+    } else {
+      withoutS.push(array[i]);
+    }
+  }
+  const result = withS.concat(withoutS);
+  return result;
+}
 
 // /*** Uncomment these to check your work! ***/
 // const startsWithS = function(str) { return str[0] === 's' || str[0] === 'S'; };
@@ -997,7 +1017,11 @@ function countBy(array, callback) {}
 // })); // should log: { odd: 3, even: 2 }
 
 // Challenge 15
-function groupBy(array, callback) {}
+function groupBy(array, callback) {
+  //create an empty object named obj;
+  //loop through the array
+  //if the result of invoking function callback passing in array at index i, this would be the key variable and t
+}
 
 // /*** Uncomment these to check your work! ***/
 // const decimals = [1.3, 2.1, 2.4];
@@ -1114,3 +1138,139 @@ function highestFunc(objOfFuncs, subject) {}
 // const nums = [1, 2, 3];
 // myForEach(nums, addToSum);
 // console.log(sum); // Should output 6
+
+/*
+Declare a function "itemRetriever" that returns a function that when called,  will return one of my favorite authors.
+The function "itemRetriever" will take two arguments (an array of objects and a string that will represent a key).
+When the returned function is called it should return the next object in the array at the key that was passed to "itemRetriever".
+example.
+
+// const favoriteAuthors = [
+//   { name: 'Earnest Hemingway', age: 50, genre: 'Classics' },
+//   { name: 'Agatha Christie', age: 57, genre: 'Romance' },
+//   { name: 'J.K. Rowling', age: 26, genre: 'Fantasy' },
+//   { name: 'Steven King', age: 85, genre: 'Horrors' },
+// ];
+
+// const nextAuthor = itemRetriever(favoriteAuthors, 'name');
+// console.log(nextAuthor()) //-> 'Earnest Hemingway'
+// console.log(nextAuthor()) //-> 'Agatha Christie'
+// console.log(nextAuthor()) //-> ''J.K. Rowling'
+// console.log(nextAuthor()) //-> 'Steven King'
+
+const nextAuthorsAge = itemRetriever(favoriteAuthors, 'age');
+console.log(nextAuthorsAge()) //-> 50
+console.log(nextAuthorsAge()) //-> 57
+
+const nextAuthorsGenre = itemRetriever(favoriteAuthors, 'genre');
+console.log(nextAuthorsGenre()) //-> Classics
+console.log(nextAuthorsGenre()) //-> Romance
+*/
+
+//input: array of objs, str
+//output: string
+
+//declare function itemRetriever takes two parameters array, and str
+//declare a variable named result,
+// declare a variable named count and assign it to 0
+// return function with no parameter
+
+//reassign result to array at index count, accessing the value of str in obj
+//increment the count by 1
+// return result
+
+// function itemRetriever (array, str) {
+//   let result;
+//   let count = 0;
+//   return function () {
+//     result = array[count][str]
+//     count += 1;
+//     return result
+//   }
+// }
+
+//input: array of objs, 'key'
+//output: str or num
+//declare function itemRetriever takes arrays of objs and key
+
+// function itemRetriever(objs, key) {
+//   let index = 0;
+//   return function () {
+//     const currentObjs = objs[index];
+//     index += 1;
+//     return currentObjs[key];
+//   };
+// }
+
+//declare index variable , assign to 0
+// return array of objs at the given index and key
+// increment the index
+
+// const favoriteAuthors = [
+//   { name: "Earnest Hemingway", age: 50, genre: "Classics" },
+//   { name: "Agatha Christie", age: 57, genre: "Romance" },
+//   { name: "J.K. Rowling", age: 26, genre: "Fantasy" },
+//   { name: "Steven King", age: 85, genre: "Horrors" },
+// ];
+// const nextAuthor = itemRetriever(favoriteAuthors, "name");
+// console.log(nextAuthor()) //-> 'Earnest Hemingway'
+// console.log(nextAuthor()) //-> 'Agatha Christie'
+// console.log(nextAuthor()) //-> ''J.K. Rowling'
+// console.log(nextAuthor()) //-> 'Steven King'
+
+/*
+Write a function called 'balancedBrackets' that takes a string of text and returns true if the parentheses are balanced and false otherwise.
+Non-bracket characters should not affect the logic.Make your solution work for all types of brackets: () [] {}
+
+Examples:
+balancedBrackets(" { }    n");                           // -> true
+balancedBrackets("hi][  ");                              // -> false
+balancedBrackets("[{random words and such}]");           // -> true
+balancedBrackets("[The]Rains(In){Spain}");               // -> true
+balancedBrackets("[({}Call me Ishmael)]");               // -> true
+balancedBrackets("[(]{)}");                              // -> false
+balancedBrackets(" gibberish { howdy: partner() }");     // -> true
+balancedBrackets(" isThisAFunction?() { notReally();");  // -> false
+*/
+
+// INPUT: string
+// OUTPUT: boolean
+
+// Declare function named balancedBrackets that accepts a string
+function balancedBrackets(str) {
+  const arr = [];
+
+  for (let i = 0; i < str.length; i++) {
+    //IF - we see a closing bracket
+    // if(str[i] === '}' || str[i] === ']' || str[i] === ')'){
+    // // return false
+    // console.log(str[i])
+    // return false;
+    // }
+
+    // IF - we see an opening bracket
+    if (str[i] === "{" || str[i] === "[" || str[i] === "(") {
+      // Push bracket into empty array
+      arr.push(str[i]);
+    } else if (str[i] === "}" || str[i] === "]" || str[i] === ")") {
+      arr.pop();
+    }
+
+    // IF - array empty
+    if (arr[i] === undefined) {
+      // return true
+      return true;
+    }
+  }
+
+  return false;
+}
+
+// console.log(balancedBrackets(" { }    n"));                           // -> true
+// console.log(balancedBrackets("hi][  "));                              // -> false
+// console.log(balancedBrackets("[{random words and such}]"));           // -> true
+// console.log(balancedBrackets("[The]Rains(In){Spain}"));               // -> true
+// console.log(balancedBrackets("[({}Call me Ishmael)]"));               // -> true
+// console.log(balancedBrackets("[(]{)}"));                              // -> false
+// console.log(balancedBrackets(" gibberish { howdy: partner() }"));     // -> true
+// console.log(balancedBrackets(" isThisAFunction?() { notReally();"));  // -> false
