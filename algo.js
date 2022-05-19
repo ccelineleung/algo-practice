@@ -39,21 +39,21 @@
 // // console.log(transpose(twoDimArray)); // -> [['fred', 30, true], ['barney', 40, false]]
 
 // // Challenge 1
-// function countdown(n, result = 0) {
-//   //decleaing variable inside the recursion named result, and assign the value to 0
-//   //base case: if n is equal to 0, return result
-//   //reassgin result to result plue n
-//   // decrement the n
-//   //return countdown with two paramteres, n and result
-//   if (n === 0) return result;
-//   result += n;
-//   n--;
-//   return countdown(n, result);
-// }
+function countdown(n, result = 0) {
+  //decleaing variable inside the recursion named result, and assign the value to 0
+  //base case: if n is equal to 0, return result
+  //reassgin result to result plue n
+  // decrement the n
+  //return countdown with two paramteres, n and result
+  if (n === 0) return result;
+  result += n;
+  n--;
+  return countdown(n, result);
+}
 
 // // To check if you've completed it, uncomment these console.logs!
-// // console.log(countdown(5));
-// // console.log(countdown(10));
+console.log(countdown(5));
+console.log(countdown(10));
 
 // // Challenge 2
 // function sum(array, i = 0, result = 0) {
@@ -1317,23 +1317,165 @@ function balancedBrackets(str) {
   // else if we see the opening prentance, push str at index i into the arr
   //else if we see the closing prentance, pop the arr
 
-  const arr = [];
+  // const arr = [];
+  // for (let i = 0; i < str.length; i++) {
+  //   if (str[i] === "(" || str[i] === "{" || str[i] === "[") {
+  //     arr.push(str[i]);
+  //   } else if (str[i] === ")" || str[i] === "}" || str[i] === "]") {
+  //     arr.pop();
+  //   }
+  // }
+  // if (arr[0] === undefined) return true;
+  // return false;
+
+  // balance out brackets in stack
+  const paris = {
+    "{": "}",
+    "[": "]",
+    "(": ")",
+  };
+
+  // Store all brackets into stack
+  const stack = [];
   for (let i = 0; i < str.length; i++) {
     if (str[i] === "(" || str[i] === "{" || str[i] === "[") {
-      arr.push(str[i]);
+      stack.push(str[i]);
     } else if (str[i] === ")" || str[i] === "}" || str[i] === "]") {
-      arr.pop();
+      // console.log(paris[stack[stack.length-1]])
+      if (paris[stack[stack.length - 1]] === str[i]) {
+        stack.pop();
+      } else {
+        return false;
+      }
     }
   }
-  if (arr[0] === undefined) return true;
-  return false;
+  return stack[0] === undefined ? true : false;
 }
 
-// console.log(balancedBrackets(" { }    n"));                           // -> true
-// console.log(balancedBrackets("hi][  "));                              // -> false
-// console.log(balancedBrackets("[{random words and such}]"));           // -> true
-// console.log(balancedBrackets("[The]Rains(In){Spain}"));               // -> true
-// console.log(balancedBrackets("[({}Call me Ishmael)]"));               // -> true
-// console.log(balancedBrackets("[(]{)}"));                              // -> false
-// console.log(balancedBrackets(" gibberish { howdy: partner() }"));     // -> true
-// console.log(balancedBrackets(" isThisAFunction?() { notReally();"));  // -> false
+// console.log(balancedBrackets(" { }    n")); // -> true
+// console.log(balancedBrackets("hi][  ")); // -> false
+// console.log(balancedBrackets("[{random words and such}]")); // -> true
+// console.log(balancedBrackets("[The]Rains(In){Spain}")); // -> true
+// console.log(balancedBrackets("[({}Call me Ishmael)]")); // -> true
+// console.log(balancedBrackets("[(]{)}")); // -> false
+// console.log(balancedBrackets(" gibberish { howdy: partner() }")); // -> true
+// console.log(balancedBrackets(" isThisAFunction?() { notReally();")); // -> false
+
+/*
+Write a function 'rotateGrid' that is given an NxN grid of elements represented by a 2D array, and outputs a grid equivalent to the same grid rotated 90 degrees clockwise.
+Example:
+// const sampleGrid = [ [1, 2, 3], [4, 5, 6], [7, 8, 9] ]
+// console.log(rotateGrid(sampleGrid)); // -> [ [7, 4, 1], [8, 5, 2], [9, 6, 3] ]
+*/
+//create function rotateGrid takes one parameter arrofArrays
+//declare empty array named emptyArr1;
+// declare empty array named emptyArr2
+// declare empty array named emptyArr3
+//loop through the arrOfArrays
+// push arrOfArrays at index 0 to emptyArr1
+// push arrOfArrays at index 1 to emptyArr2
+// push arrOfArrays at index 2 to emptyArr3
+//declare am empty array named result, and push emptyArr1.2.3 to the result
+// return result
+
+function rotateGrid(arrOfArrays) {
+  const emptyArr1 = [];
+  const emptyArr2 = [];
+  const emptyArr3 = [];
+
+  for (let i = arrOfArrays.length - 1; i >= 0; i -= 1) {
+    emptyArr1.push(arrOfArrays[i][0]);
+    emptyArr2.push(arrOfArrays[i][1]);
+    emptyArr3.push(arrOfArrays[i][2]);
+  }
+
+  return [emptyArr1, emptyArr2, emptyArr3];
+}
+// const sampleGrid = [
+//   [1, 2, 3],
+//   [4, 5, 6],
+//   [7, 8, 9],
+// ];
+// console.log(rotateGrid(sampleGrid)); // -> [ [7, 4, 1], [8, 5, 2], [9, 6, 3] ]
+
+/*
+Create a function "checkerLogger" that takes one argument (a function that returns a boolean value) The returned function should have the following behavior:
+If the function is invoked with an argument, the checker callback function is invoked and its boolean result is returned.
+If the function is invoked without any arguments, instead return a count of the number of times the callback function has been invoked and evaluated true or false.
+Example:
+const isOdd = num => num % 2 === 1
+const oddCounter = checkerLogger(isOdd);
+oddCounter(); ->  { true: 0, false: 0 }
+oddCounter(3); -> true
+oddCounter(2); ->  false
+oddCounter(); -> { true: 1, false: 1 }
+*/
+
+// Input: One argument (function)
+// Output: Either boolean or Object
+
+// Closure?
+// Create a function labeled "checkerLogger"
+// Accepts one parameter named "argument"
+// Create an empty object "obj"
+// Make two variables, 'Even' and 'Odd', assigned to 0
+// Return anon function that accepts one number
+// If number is defined, evaluate the function "argument", passing in the number
+// If true, reassign odd to odd+1 and return true
+// If false, even is even+1 and return false
+// If number is undefined, obj = {'true' : Odd, 'false' : Even}
+// Return ^
+
+function checkerLogger(argument) {
+  const obj = { true: 0, false: 0 };
+
+  return (...num) => {
+    if (num.length !== 0) {
+      if (argument(...num)) {
+        obj.true += 1;
+        return true;
+      } else {
+        obj.false += 1;
+        return false;
+      }
+    } else {
+      return obj;
+    }
+  };
+}
+
+// const isOdd = num => num % 2 === 1
+// const oddCounter = checkerLogger(isOdd);
+// console.log(oddCounter()); // ->  { true: 0, false: 0 }
+// console.log(oddCounter(3)); // -> true
+// console.log(oddCounter(2)); // ->  false
+// console.log(oddCounter()); // -> { true: 1, false: 1 }
+
+/*
+    Create a function "countChar" that takes two arguments (an input string and a target string of length 1).
+    "countChar" will return the number of times the target string is found in the input string.
+    Example:
+    countChar('hello world', 'o'); -> 2
+    countChar('javascript', 'j'); -> 1
+    Note: Do not use any native JS methods, or loops.
+    */
+
+// RECURSION!
+
+// Declare a function 'countChar' with two parameters 'str1' and 'str2'
+// Declare a variable index assigned to 0
+// Declare a variable count assigned to 0
+// Base case: if str1 at index is equal to undefined, return count
+// If str1 at index 'index' is equal to str2
+// Increment count by 1
+// Return countChar, passing in str1, str2, index, and count
+
+function countChar(str1, str2, index = 0, count = 0) {
+  if (str1[index] === undefined) return count;
+  if (str1[index] === str2) count += 1;
+
+  return countChar(str1, str2, (index += 1), count);
+}
+
+// console.log(countChar('hello world', 'o')); // -> 2
+// console.log(countChar('javascript', 'j')); // -> 1
