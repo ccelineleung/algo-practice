@@ -1480,3 +1480,4 @@ function countChar(str1, str2, index = 0, count = 0) {
 // console.log(countChar('hello world', 'o')); // -> 2
 // console.log(countChar('javascript', 'j')); // -> 1
 // test
+// more test
