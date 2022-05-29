@@ -1135,13 +1135,9 @@ function isOdd(num) {
 // console.log(myFunc(evens, isOdd)); // Output should be -1
 
 // Challenge 24
-<<<<<<< HEAD:algo.js
-// function myForEach(array, callback) {}
-=======
 // function myForEach(array, callback) {
 
 // }
->>>>>>> fc423c0f781b04d910a8c0e734989ebfa6fefc6a:algo/algo.js
 
 // let sum = 0;
 

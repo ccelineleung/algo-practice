@@ -1443,7 +1443,7 @@ function checkerLogger(argument) {
     }
   };
 }
-
+//update
 // const isOdd = num => num % 2 === 1
 // const oddCounter = checkerLogger(isOdd);
 // console.log(oddCounter()); // ->  { true: 0, false: 0 }
@@ -1479,3 +1479,4 @@ function countChar(str1, str2, index = 0, count = 0) {
 
 // console.log(countChar('hello world', 'o')); // -> 2
 // console.log(countChar('javascript', 'j')); // -> 1
+// test
