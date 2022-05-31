@@ -1480,3 +1480,18 @@ function countChar(str1, str2, index = 0, count = 0) {
 // console.log(countChar('hello world', 'o')); // -> 2
 // console.log(countChar('javascript', 'j')); // -> 1
 // update
+
+function makePerson(name, age) {
+	// add code here'
+  const newUser = Object.create(null)
+  newUser.name = name;
+  newUser.age = age;
+  return newUser
+}
+
+const vicky = makePerson('Vicky', 24);
+
+
+// Uncomment these lines to check your work!
+// console.log(vicky.name); // -> Logs 'Vicky'
+// console.log(vicky.age); // -> Logs 24
