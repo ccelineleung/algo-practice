@@ -1516,3 +1516,27 @@ const mike = personFromConstructor('Mike', 30);
 
 // Uncomment this line to check your work!
 // mike.introduce(); // -> Logs 'Hi, my name is Mike'
+
+class PersonClass {
+	constructor(name) {
+    this.name = name;
+	}
+
+	greet() {
+    console.log('hello');
+  }
+}
+
+// add code here
+class DeveloperClass extends PersonClass {
+  
+  introduce () {
+    console.log(`Hello World, my name is ${this.name}`)
+  }
+}
+// const thai = new DeveloperClass('Thai', 32);
+
+// Uncomment these lines to check your work!
+// console.log(thai.name); // -> Logs 'Thai'
+// thai.introduce(); // -> Logs 'Hello World, my name is Thai'
+
