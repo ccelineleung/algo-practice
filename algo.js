@@ -1482,24 +1482,23 @@ function countChar(str1, str2, index = 0, count = 0) {
 // update
 
 function makePerson(name, age) {
-	// add code here'
-  const newUser = Object.create(null)
+  // add code here'
+  const newUser = Object.create(null);
   newUser.name = name;
   newUser.age = age;
-  return newUser
+  return newUser;
 }
 
-const vicky = makePerson('Vicky', 24);
-
+const vicky = makePerson("Vicky", 24);
 
 // Uncomment these lines to check your work!
 // console.log(vicky.name); // -> Logs 'Vicky'
 // console.log(vicky.age); // -> Logs 24
 
 function PersonConstructor() {
-  this.greet = function() {
-    console.log('hello');
-  }
+  this.greet = function () {
+    console.log("hello");
+  };
 }
 
 function personFromConstructor(name, age) {
@@ -1509,7 +1508,7 @@ function personFromConstructor(name, age) {
   return person;
 }
 
-const mike = personFromConstructor('Mike', 30);
+const mike = personFromConstructor("Mike", 30);
 
 // add code here
 // mike.introduce = function () {console.log(`Hi, my name is ${this.name}`)}
@@ -1518,20 +1517,19 @@ const mike = personFromConstructor('Mike', 30);
 // mike.introduce(); // -> Logs 'Hi, my name is Mike'
 
 class PersonClass {
-	constructor(name) {
+  constructor(name) {
     this.name = name;
-	}
+  }
 
-	greet() {
-    console.log('hello');
+  greet() {
+    console.log("hello");
   }
 }
 
 // add code here
 class DeveloperClass extends PersonClass {
-  
-  introduce () {
-    console.log(`Hello World, my name is ${this.name}`)
+  introduce() {
+    console.log(`Hello World, my name is ${this.name}`);
   }
 }
 // const thai = new DeveloperClass('Thai', 32);
@@ -1540,3 +1538,4 @@ class DeveloperClass extends PersonClass {
 // console.log(thai.name); // -> Logs 'Thai'
 // thai.introduce(); // -> Logs 'Hello World, my name is Thai'
 
+//updates
