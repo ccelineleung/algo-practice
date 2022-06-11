@@ -309,7 +309,10 @@ tree.insert(15);
 tree.insert(3);
 tree.insert(8);
 tree.insert(20);
+tree.insert(5)
 console.log(tree.breadthFirstSearch());
 console.log(tree.DFSPreOrder());
 console.log(tree.DFSPostOrder());
 console.log(tree.DFSInOrder());
+
+//update
