@@ -1539,3 +1539,9 @@ class DeveloperClass extends PersonClass {
 // thai.introduce(); // -> Logs 'Hello World, my name is Thai'
 
 //updates
+
+for (let i=0; i<4; i++){
+  console.log(i)
+  i++
+  console.log(i)
+}
