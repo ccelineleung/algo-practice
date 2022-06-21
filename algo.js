@@ -1540,8 +1540,97 @@ class DeveloperClass extends PersonClass {
 
 //updates
 
-for (let i=0; i<4; i++){
-  console.log(i)
-  i++
-  console.log(i)
+for (let i = 0; i < 4; i++) {
+  console.log(i);
+  i++;
+  console.log(i);
+}
+
+// Creates a clone of an object.
+// const users = [{ user: "barney" }, { user: "fred" }];
+// const shallowClone = clone(users);
+// console.log(shallowClone[0] === users[0]); // → true
+function clone(value) {
+  // CODE HERE
+  const newArr = [];
+  for (let key in value) {
+    newArr[key] = value[key];
+  }
+  return newArr;
+}
+
+// Return the size of collection. If the argument passed is an array, then return
+// the length of the array. If the argument passed is an object, then return the
+// number of key/value properties.
+// size([1,2,3]); → 3
+// size({a: 1, b: 2}); → 2
+function size(collection) {
+  // CODE HERE
+  let sum = 0;
+  if (Array.isArray(collection)) {
+    return collection.length;
+  } else {
+    for (let key in collection) {
+      sum++;
+    }
+    return sum;
+  }
+}
+
+// Returns the first element of an array without modifying the original array.
+// Returns undefined if array is empty
+// first([1,2,3]); → 1
+// first([]); → undefined
+function first(array) {
+  // CODE HERE
+  if (array.length === 0) return undefined;
+  return array[0];
+}
+
+// Creates a slice of array with n elements dropped from the beginning.
+// n defaults to 1
+// drop([1, 2, 3]); → [2, 3]
+// drop([1, 2, 3], 2); → [3]
+// drop([1, 2, 3], 5); → []
+// drop([1, 2, 3], 0); → [1, 2, 3]
+function drop(array, n) {
+  // CODE HERE
+  const newArr = [];
+  if (n === undefined) {
+    n = 1;
+  }
+  if (n > array.length - 1) return [];
+  for (let i = n; i < array.length; i++) {
+    newArr.push(array[i]);
+  }
+  return newArr;
+}
+
+//Creates a slice of array with n elements taken from the beginning.
+//n defaults to 1
+// take([1, 2, 3]); → [1]
+// take([1, 2, 3], 2); → [1, 2]
+// take([1, 2, 3], 5); → [1, 2, 3]
+// take([1, 2, 3], 0); → []
+function take(array, n) {
+  // CODE HERE
+  const arr = [];
+  if (n === undefined) n = 1;
+  if (n === 0) return [];
+  if (n > array.length) return array;
+  for (let i = 0; i < n; i++) {
+    arr.push(array[i]);
+  }
+  return arr;
+}
+
+// Gets the value of key from all elements in collection.
+// pluck([{user: 'Bob', age: 20},{user: 'Sam', age: 25}], 'user'); → ['Bob','Sam']
+function pluck(array, key) {
+  // CODE HERE
+  const arr = [];
+  for (let element of array) {
+    arr.push(element[key]);
+  }
+  return arr;
 }
