@@ -1634,3 +1634,17 @@ function pluck(array, key) {
   }
   return arr;
 }
+
+function reverseWords(str) {
+  const arr = str.split(/(\s+)/)
+  const newArr = []
+  console.log(arr)
+  for (let element of arr){
+    for (let i=element.length-1; i >= 0; i--) {
+      newArr.push(element[i])
+    }
+  }
+  let result = newArr.join("")
+  return result
+}
+console.log(reverseWords("This is an example!"))
