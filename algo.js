@@ -1648,3 +1648,15 @@ function reverseWords(str) {
   return result
 }
 console.log(reverseWords("This is an example!"))
+
+function countSheeps(arrayOfSheep) {
+  // TODO May the force be with you
+  if (arrayOfSheep === null || arrayOfSheep.length === undefined) return no;
+  let count = 0;
+  for (let element of arrayOfSheep) {
+    if (element === true) {
+      count += 1;
+    }
+  }
+  return count
+}
