@@ -1636,18 +1636,18 @@ function pluck(array, key) {
 }
 
 function reverseWords(str) {
-  const arr = str.split(/(\s+)/)
-  const newArr = []
-  console.log(arr)
-  for (let element of arr){
-    for (let i=element.length-1; i >= 0; i--) {
-      newArr.push(element[i])
+  const arr = str.split(/(\s+)/);
+  const newArr = [];
+  console.log(arr);
+  for (let element of arr) {
+    for (let i = element.length - 1; i >= 0; i--) {
+      newArr.push(element[i]);
     }
   }
-  let result = newArr.join("")
-  return result
+  let result = newArr.join("");
+  return result;
 }
-console.log(reverseWords("This is an example!"))
+console.log(reverseWords("This is an example!"));
 
 function countSheeps(arrayOfSheep) {
   // TODO May the force be with you
@@ -1658,5 +1658,18 @@ function countSheeps(arrayOfSheep) {
       count += 1;
     }
   }
-  return count
+  return count;
+}
+
+function DNAtoRNA(dna) {
+  // create a function which returns an RNA sequence from the given DNA sequence
+  let RNA = "";
+  for (let i = 0; i < dna.length; i++) {
+    if (dna[i] === "T") {
+      RNA += "U";
+    } else {
+      RNA += dna[i];
+    }
+  }
+  return RNA;
 }
