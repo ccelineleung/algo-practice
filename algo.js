@@ -1682,3 +1682,24 @@ function SeriesSum(n) {
   }
   return sum.toFixed(2)
 }
+
+function solution(str, ending){
+ console.log(str[0])
+  let left = str.length - ending.length;
+  let right = 0 
+  while (left < str.length) {
+  if (str[left] !== ending[right]) {
+    
+    left += 1
+  } else {
+    left += 1;
+    right += 1;
+  }
+  
+  }
+ 
+  if (left === str.length && right === ending.length) return true;
+  else {return false};
+}
+console.log(solution('abcde', 'cde'))
+console.log(solution('abcde', 'abc'))
