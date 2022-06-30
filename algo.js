@@ -1677,29 +1677,47 @@ function DNAtoRNA(dna) {
 function SeriesSum(n) {
   // Happy Coding ^_^
   let sum = 0;
-  for (let i=0; i<n; i++) {
-    sum += 1 / (1 + i * 3)
+  for (let i = 0; i < n; i++) {
+    sum += 1 / (1 + i * 3);
   }
-  return sum.toFixed(2)
+  return sum.toFixed(2);
 }
 
-function solution(str, ending){
- console.log(str[0])
+function solution(str, ending) {
+  console.log(str[0]);
   let left = str.length - ending.length;
-  let right = 0 
+  let right = 0;
   while (left < str.length) {
-  if (str[left] !== ending[right]) {
-    
-    left += 1
-  } else {
-    left += 1;
-    right += 1;
+    if (str[left] !== ending[right]) {
+      left += 1;
+    } else {
+      left += 1;
+      right += 1;
+    }
   }
-  
-  }
- 
+
   if (left === str.length && right === ending.length) return true;
-  else {return false};
+  else {
+    return false;
+  }
 }
-console.log(solution('abcde', 'cde'))
-console.log(solution('abcde', 'abc'))
+// console.log(solution("abcde", "cde"));
+// console.log(solution("abcde", "abc"));
+
+function DNAStrand(dna){
+  //your code here
+  let result = "";
+  for（let i=0; i<dna.length; i++) {
+    console.log(dna[i])
+     if (dna[i] === "A") {
+       result += "T"
+     } else if (dna[i] === "T") {
+       result += "A"
+     } else if (dna[i] === "G") {
+       result += "C"
+     } else if (dna[i] === "C") {
+       result += "G"
+     }
+  }
+  return result
+}
