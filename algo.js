@@ -1721,3 +1721,16 @@ function DNAStrand(dna){
   }
   return result
 }
+
+function getMiddle(s){
+  let result = '';
+  for (let i = 0; i<s.length; i++) {
+    if (s.length % 2 === 0) {
+      result = s[s.length/2 - 1] + s[s.length/2];
+      return result;
+    } else {
+      result = s[Math.ceil(s.length/2 - 1)]
+      return result
+    }
+  }
+}
