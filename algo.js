@@ -1734,3 +1734,12 @@ function getMiddle(s){
     }
   }
 }
+
+function alphabetPosition(text) {
+  text = text.replace(/([^a-z])/ig, '').toLowerCase().split('')
+
+  for (let i = 0; i < text.length; i++) {
+    text[i] = text[i].charCodeAt() - 96
+  }
+  return text.join(' ')
+}
