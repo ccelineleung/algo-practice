@@ -1683,63 +1683,93 @@ function SeriesSum(n) {
   return sum.toFixed(2);
 }
 
-function solution(str, ending) {
-  console.log(str[0]);
-  let left = str.length - ending.length;
-  let right = 0;
-  while (left < str.length) {
-    if (str[left] !== ending[right]) {
-      left += 1;
-    } else {
-      left += 1;
-      right += 1;
-    }
-  }
+// function solution(str, ending) {
+//   console.log(str[0]);
+//   let left = str.length - ending.length;
+//   let right = 0;
+//   while (left < str.length) {
+//     if (str[left] !== ending[right]) {
+//       left += 1;
+//     } else {
+//       left += 1;
+//       right += 1;
+//     }
+//   }
 
-  if (left === str.length && right === ending.length) return true;
-  else {
-    return false;
-  }
-}
+//   if (left === str.length && right === ending.length) return true;
+//   else {
+//     return false;
+//   }
+// }
 // console.log(solution("abcde", "cde"));
 // console.log(solution("abcde", "abc"));
 
-function DNAStrand(dna){
-  //your code here
-  let result = "";
-  for（let i=0; i<dna.length; i++) {
-    console.log(dna[i])
-     if (dna[i] === "A") {
-       result += "T"
-     } else if (dna[i] === "T") {
-       result += "A"
-     } else if (dna[i] === "G") {
-       result += "C"
-     } else if (dna[i] === "C") {
-       result += "G"
-     }
-  }
-  return result
-}
+// function DNAStrand(dna){
+//   //your code here
+//   let result = "";
+//   for（let i=0; i<dna.length; i++) {
+//     console.log(dna[i])
+//      if (dna[i] === "A") {
+//        result += "T"
+//      } else if (dna[i] === "T") {
+//        result += "A"
+//      } else if (dna[i] === "G") {
+//        result += "C"
+//      } else if (dna[i] === "C") {
+//        result += "G"
+//      }
+//   }
+//   return result
+// }
 
-function getMiddle(s){
-  let result = '';
-  for (let i = 0; i<s.length; i++) {
-    if (s.length % 2 === 0) {
-      result = s[s.length/2 - 1] + s[s.length/2];
-      return result;
-    } else {
-      result = s[Math.ceil(s.length/2 - 1)]
-      return result
-    }
-  }
-}
+// function getMiddle(s){
+//   let result = '';
+//   for (let i = 0; i<s.length; i++) {
+//     if (s.length % 2 === 0) {
+//       result = s[s.length/2 - 1] + s[s.length/2];
+//       return result;
+//     } else {
+//       result = s[Math.ceil(s.length/2 - 1)]
+//       return result
+//     }
+//   }
+// }
 
-function alphabetPosition(text) {
-  text = text.replace(/([^a-z])/ig, '').toLowerCase().split('')
+// function alphabetPosition(text) {
+//   text = text.replace(/([^a-z])/ig, '').toLowerCase().split('')
 
-  for (let i = 0; i < text.length; i++) {
-    text[i] = text[i].charCodeAt() - 96
+//   for (let i = 0; i < text.length; i++) {
+//     text[i] = text[i].charCodeAt() - 96
+//   }
+//   return text.join(' ')
+// }
+
+// function assertEquals(str) {
+//   //   let arr = ...str;
+//     let num = /[0-9]/;
+   
+//     console.log(num)
+    
+//   }
+//   console.log(assertEquals("7"))
+
+// function assertEquals(str) {
+//   // console.log(...str)
+//   let arr = [...str]
+//   console.log(arr)
+//   console.log(typeof(arr[1]))
+//   for (let i=0; i<arr.length; i++) {
+//     if (typeof(arr[i]) !== number) return false;
+//   }
+//    return true;
+//  }
+//   console.log(assertEquals('l4'))
+
+//   console.log(/^[0-9]$/)
+
+  function assertEquals(str) {
+    if (str.match(/^[0-9]$/)) return true;
+    else return false;
   }
-  return text.join(' ')
-}
+
+  // console.log(assertEquals(' '))
