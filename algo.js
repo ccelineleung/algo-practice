@@ -1784,3 +1784,12 @@ function findSum(n) {
   }
   return result
 }
+
+function wdm(talk){
+  
+
+    return talk.replace(/puke|hiccup/g,'').replace(/ +/g,' ').trim()
+ 
+ }
+
+  console.log(wdm("puke All's well hiccup     that ends hiccup well puke"))
