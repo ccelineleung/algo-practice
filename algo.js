@@ -1747,9 +1747,9 @@ function SeriesSum(n) {
 // function assertEquals(str) {
 //   //   let arr = ...str;
 //     let num = /[0-9]/;
-   
+
 //     console.log(num)
-    
+
 //   }
 //   console.log(assertEquals("7"))
 
@@ -1767,9 +1767,20 @@ function SeriesSum(n) {
 
 //   console.log(/^[0-9]$/)
 
-  function assertEquals(str) {
-    if (str.match(/^[0-9]$/)) return true;
-    else return false;
-  }
+function assertEquals(str) {
+  const regex = /^[0-9]$/;
+  if (str.match(regex)) return true;
+  else return false;
+}
 
-  // console.log(assertEquals(' '))
+// console.log(assertEquals("5"));
+
+function findSum(n) {
+  let result = 0;
+  for (let i=0; i<=n; i++) {
+    if(i % 3 === 0 || i % 5 === 0){
+      result += i
+    }
+  }
+  return result
+}
