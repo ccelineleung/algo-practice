@@ -79,12 +79,55 @@ const smallest_subarray_sum = function (s, arr) {
   return minLength;
 };
 
+// console.log(
+//   `Smallest subarray length: ${smallest_subarray_sum(7, [2, 1, 5, 2, 3, 2])}`
+// );
+// console.log(
+//   `Smallest subarray length: ${smallest_subarray_sum(8, [3, 4, 1, 1, 6])}`
+// );
+// console.log(
+//   `Smallest subarray length: ${smallest_subarray_sum(7, [2, 1, 5, 2, 3, 2])}`
+// );
+
+
+
+// console.log(
+//     `Length of the longest substring: ${longest_substring_with_k_distinct(
+//       "cbbebi",
+//       3
+//     )}`
+//   );
+
+
+const longest_substring_with_k_distinct = function (str, k) {
+  const objFrequency = {};
+  let start = 0;
+  let maxLength = 0;
+
+  for (let end = 0; end < str.length; end++) {
+    objFrequency[str[end]]
+      ? (objFrequency[str[end]] += 1)
+      : (objFrequency[str[end]] = 1);
+
+    console.log(objFrequency);
+
+    while (Object.keys(objFrequency).length > k) {
+      objFrequency[str[start]] -= 1;
+      if (objFrequency[str[start]] === 0) {
+        delete objFrequency[str[start]];
+      }
+      start += 1;
+    }
+    console.log(maxLength,end - start + 1)
+    maxLength = Math.max(maxLength, end - start + 1);
+    console.log(maxLength)
+  }
+  return maxLength;
+};
+
 console.log(
-  `Smallest subarray length: ${smallest_subarray_sum(7, [2, 1, 5, 2, 3, 2])}`
-);
-console.log(
-  `Smallest subarray length: ${smallest_subarray_sum(8, [3, 4, 1, 1, 6])}`
-);
-console.log(
-  `Smallest subarray length: ${smallest_subarray_sum(7, [2, 1, 5, 2, 3, 2])}`
-);
+    `Length of the longest substring: ${longest_substring_with_k_distinct(
+      "cbbebi",
+      3
+    )}`
+  );
