@@ -181,3 +181,109 @@ const non_repeat_substring = function (str) {
 // );
 //  console.log(`Length of the longest substring: ${non_repeat_substring('abbbb')}`);
 // console.log(`Length of the longest substring: ${non_repeat_substring('abccde')}`);
+
+// function length_of_longest_substring(str, k) {
+//   const objLetter = {};
+//   let start = 0;
+//   let maxLength = 0;
+//   let maxRepeat = 0;
+
+//   for (let end = 0; end < str.length; end++) {
+//     if (str[end] in objLetter) {
+//       objLetter[str[end]] += 1;
+//     } else {
+//       objLetter[str[end]] = 0;
+//     }
+//     console.log(objLetter);
+
+//     if (end - start + 1 - maxRepeat > k) {
+//       objLetter[str[end]] -= 1;
+//       start += 1;
+//     }
+
+//     maxLength = Math.max(maxLength, end - start + 1);
+//   }
+//   return maxLength;
+// }
+// console.log(length_of_longest_substring("aabccbb", 2));
+// console.log(length_of_longest_substring("abbcb", 1));
+// console.log(length_of_longest_substring("abccde", 1));
+
+const length_of_longest_substring = function (arr, k) {
+  const objCount = {};
+  let start = 0;
+  let maxLength = 0;
+  let count = 0;
+
+  for (let end = 0; end < arr.length; end++) {
+    if (arr[end] === 1) {
+      count += 1;
+    }
+    if (end - start + 1 - count > k) {
+      if (arr[start] === 1) {
+        count -= 1;
+      }
+      start += 1;
+    }
+    maxLength = Math.max(maxLength, end - start + 1);
+  }
+  return maxLength;
+};
+
+// console.log(length_of_longest_substring([0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], 2));
+// console.log(
+//   length_of_longest_substring([0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1], 3)
+// );
+
+function find_permutation(str, pattern) {
+  const patternObj = {};
+  let start = 0;
+  let match = 0;
+
+  for (let i = 0; i < pattern.length; i++) {
+    patternObj[pattern[i]]
+      ? (patternObj[pattern[i]] += 1)
+      : (patternObj[pattern[i]] = 1);
+    // if (!(pattern[i] in patternObj)) {
+    //     patternObj[pattern[i]] = 0
+    // } 
+    //     patternObj[pattern[i]] += 1
+    
+  }
+  console.log(patternObj)
+
+  for (let end = 0; end < str.length; end++) {
+    if (str[end] in patternObj) {
+        patternObj[str[end]] -= 1;
+        if (patternObj[str[end]] === 0) {
+            match += 1;
+        }
+    }
+    console.log(match)
+
+    if (Object.keys(patternObj).length === match) return true;
+
+    //shrink the sliding window
+    if (end >= pattern.length - 1) {
+        let leftChar = str[start];
+        start += 1;
+        console.log(leftChar)
+        if (leftChar in patternObj) {
+            if (patternObj[leftChar] === 0) {
+                console.log(match)
+                match -= 1;
+                console.log(patternObj[leftChar],match)
+            }
+            console.log(patternObj)
+            patternObj[leftChar] += 1;
+            console.log(patternObj)
+        }
+    } 
+  }
+  return false;
+}
+
+//console.log(`Permutation exist: ${find_permutation("oidbcaf", "abc")}`);
+console.log(`Permutation exist: ${find_permutation("odicf", "dc")}`);
+// console.log(`Permutation exist: ${find_permutation("bcdxabcdy", "bcdyabcdx")}`);
+// console.log(`Permutation exist: ${find_permutation("aaacb", "abc")}`);
