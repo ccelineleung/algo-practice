@@ -89,15 +89,12 @@ const smallest_subarray_sum = function (s, arr) {
 //   `Smallest subarray length: ${smallest_subarray_sum(7, [2, 1, 5, 2, 3, 2])}`
 // );
 
-
-
 // console.log(
 //     `Length of the longest substring: ${longest_substring_with_k_distinct(
 //       "cbbebi",
 //       3
 //     )}`
 //   );
-
 
 const longest_substring_with_k_distinct = function (str, k) {
   const objFrequency = {};
@@ -118,16 +115,69 @@ const longest_substring_with_k_distinct = function (str, k) {
       }
       start += 1;
     }
-    console.log(maxLength,end - start + 1)
+    console.log(maxLength, end - start + 1);
     maxLength = Math.max(maxLength, end - start + 1);
-    console.log(maxLength)
+    console.log(maxLength);
   }
   return maxLength;
 };
 
-console.log(
-    `Length of the longest substring: ${longest_substring_with_k_distinct(
-      "cbbebi",
-      3
-    )}`
-  );
+// console.log(
+//     `Length of the longest substring: ${longest_substring_with_k_distinct(
+//       "cbbebi",
+//       3
+//     )}`
+//   );
+
+const fruits_into_baskets = function (fruits) {
+  const fruitTree = {};
+  let start = 0;
+  let maxLength = 0;
+
+  for (let end = 0; end < fruits.length; end++) {
+    fruitTree[fruits[end]]
+      ? (fruitTree[fruits[end]] += 1)
+      : (fruitTree[fruits[end]] = 1);
+
+    console.log(fruitTree);
+    while (Object.keys(fruitTree).length > 2) {
+      fruitTree[fruits[start]] -= 1;
+      if (fruitTree[fruits[start]] === 0) {
+        delete fruitTree[fruits[start]];
+      }
+      start += 1;
+    }
+    maxLength = Math.max(maxLength, end - start + 1);
+  }
+  return maxLength;
+};
+
+// console.log(`Maximum number of fruits: ${fruits_into_baskets(['A', 'B', 'C', 'A', 'C'])}`);
+// console.log(`Maximum number of fruits: ${fruits_into_baskets(['A', 'B', 'C', 'B', 'B', 'C'])}`);
+
+const non_repeat_substring = function (str) {
+  const characters = {};
+  let start = 0;
+  maxLength = 0;
+  for (let end = 0; end < str.length; end++) {
+    //如果obj里面已经有这个字母了，就更新start的index，看看现在哪个更大
+    // console.log(characters)
+    if (str[end] in characters) {
+      start = Math.max(start, characters[str[end]] + 1);
+      // console.log(characters[str[end]],characters[str[end]] + 1)
+    } else {
+      //如果没有，就在obj里面增加这个key 和她的value（就是index的位置）
+      characters[str[end]] = end;
+    }
+    // console.log(characters)
+    maxLength = Math.max(maxLength, end - start + 1);
+    //console.log(maxLength)
+  }
+  return maxLength;
+};
+
+// console.log(
+//   `Length of the longest substring: ${non_repeat_substring("aabccbb")}`
+// );
+//  console.log(`Length of the longest substring: ${non_repeat_substring('abbbb')}`);
+// console.log(`Length of the longest substring: ${non_repeat_substring('abccde')}`);
