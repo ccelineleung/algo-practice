@@ -246,44 +246,191 @@ function find_permutation(str, pattern) {
       : (patternObj[pattern[i]] = 1);
     // if (!(pattern[i] in patternObj)) {
     //     patternObj[pattern[i]] = 0
-    // } 
+    // }
     //     patternObj[pattern[i]] += 1
-    
   }
-  console.log(patternObj)
+  console.log(patternObj);
 
   for (let end = 0; end < str.length; end++) {
     if (str[end] in patternObj) {
-        patternObj[str[end]] -= 1;
-        if (patternObj[str[end]] === 0) {
-            match += 1;
-        }
+      patternObj[str[end]] -= 1;
+      if (patternObj[str[end]] === 0) {
+        match += 1;
+      }
     }
-    console.log(match)
+    console.log(match);
 
     if (Object.keys(patternObj).length === match) return true;
 
     //shrink the sliding window
     if (end >= pattern.length - 1) {
-        let leftChar = str[start];
-        start += 1;
-        console.log(leftChar)
-        if (leftChar in patternObj) {
-            if (patternObj[leftChar] === 0) {
-                console.log(match)
-                match -= 1;
-                console.log(patternObj[leftChar],match)
-            }
-            console.log(patternObj)
-            patternObj[leftChar] += 1;
-            console.log(patternObj)
+      let leftChar = str[start];
+      start += 1;
+      console.log(leftChar);
+      if (leftChar in patternObj) {
+        if (patternObj[leftChar] === 0) {
+          console.log(match);
+          match -= 1;
+          console.log(patternObj[leftChar], match);
         }
-    } 
+        console.log(patternObj);
+        patternObj[leftChar] += 1;
+        console.log(patternObj);
+      }
+    }
   }
   return false;
 }
 
 //console.log(`Permutation exist: ${find_permutation("oidbcaf", "abc")}`);
-console.log(`Permutation exist: ${find_permutation("odicf", "dc")}`);
+// console.log(`Permutation exist: ${find_permutation("odicf", "dc")}`);
 // console.log(`Permutation exist: ${find_permutation("bcdxabcdy", "bcdyabcdx")}`);
 // console.log(`Permutation exist: ${find_permutation("aaacb", "abc")}`);
+
+const find_string_anagrams = function (str, pattern) {
+  const resultIndexes = [];
+  let start = 0;
+  let matched = 0;
+  const patternObj = {};
+
+  for (let i = 0; i < pattern.length; i++) {
+    patternObj[pattern[i]]
+      ? (patternObj[pattern[i]] += 1)
+      : (patternObj[pattern[i]] = 1);
+  }
+  console.log(patternObj);
+
+  for (let end = 0; end < str.length; end++) {
+    if (str[end] in patternObj) {
+      patternObj[str[end]] -= 1;
+      if (patternObj[str[end]] === 0) {
+        matched += 1;
+      }
+    }
+    console.log(patternObj, matched);
+
+    if (matched === Object.keys(patternObj).length) {
+      resultIndexes.push(start);
+    }
+
+    if (end >= pattern.length - 1) {
+      let leftChar = str[start];
+      console.log(leftChar);
+      start += 1;
+      console.log(start);
+      if (leftChar in patternObj) {
+        if (patternObj[leftChar] === 0) {
+          matched -= 1;
+        }
+        patternObj[leftChar] += 1;
+        console.log(patternObj, matched);
+      }
+    }
+  }
+
+  return resultIndexes;
+};
+
+//console.log(find_string_anagrams("ppqp", "pq"));
+// console.log(find_string_anagrams("abbcabc", "abc"));
+
+const find_substring = function (str, pattern) {
+  const patternObj = {};
+  let start = 0;
+  let matched = 0;
+  let minLength = str.length - 1;
+  let substrStart = 0;
+
+  for (let i = 0; i < pattern.length; i++) {
+    patternObj[pattern[i]]
+      ? (patternObj[pattern[i]] += 1)
+      : (patternObj[pattern[i]] = 1);
+  }
+
+  for (let end = 0; end < str.length; end++) {
+    if (str[end] in patternObj) {
+      patternObj[str[end]] -= 1;
+      if (patternObj[str[end]] >= 0) {
+        matched += 1;
+      }
+    }
+
+    while (matched === pattern.length) {
+      if (minLength > end - start + 1) {
+        minLength = end - start + 1;
+        substrStart = start;
+      }
+
+      let leftChar = str[start];
+      start += 1;
+      if (leftChar in patternObj) {
+        if (patternObj[leftChar] === 0) {
+          matched -= 1;
+        }
+        patternObj[leftChar] += 1;
+      }
+    }
+  }
+  if (minLength > str.length) {
+    return "";
+  }
+  return str.substring(substrStart, substrStart + minLength);
+};
+
+// console.log(find_substring("aabdec", "abc"));
+// console.log(find_substring("aabdec", "abac"));
+// console.log(find_substring("abdbca", "abc"));
+// console.log(find_substring("adcad", "abc"));
+
+function find_word_concatenation(str, words) {
+    if (words.length === 0 || words[0].length === 0) {
+      return [];
+    }
+  
+    wordFrequency = {};
+  
+    words.forEach((word) => {
+      if (!(word in wordFrequency)) {
+        wordFrequency[word] = 0;
+      }
+      wordFrequency[word] += 1;
+    });
+  
+    const resultIndices = [],
+      wordsCount = words.length;
+    wordLength = words[0].length;
+  
+    for (i = 0; i < (str.length - wordsCount * wordLength) + 1; i++) {
+      const wordsSeen = {};
+      for (j = 0; j < wordsCount; j++) {
+        next_word_index = i + j * wordLength;
+        // Get the next word from the string
+        word = str.substring(next_word_index, next_word_index + wordLength);
+        if (!(word in wordFrequency)) { // Break if we don't need this word
+          break;
+        }
+  
+        // Add the word to the 'wordsSeen' map
+        if (!(word in wordsSeen)) {
+          wordsSeen[word] = 0;
+        }
+        wordsSeen[word] += 1;
+  
+  
+        // no need to process further if the word has higher frequency than required
+        if (wordsSeen[word] > (wordFrequency[word] || 0)) {
+          break;
+        }
+  
+        if (j + 1 === wordsCount) { // Store index if we have found all the words
+          resultIndices.push(i);
+        }
+      }
+    }
+  
+    return resultIndices;
+  }
+  
+  
+//   console.log(find_word_concatenation('catfoxcat', ['cat', 'fox']));
+//   console.log(find_word_concatenation('catcatfoxfox', ['cat', 'fox']));
