@@ -158,32 +158,101 @@ const triplet_with_smaller_sum = function (arr, target) {
 // console.log(triplet_with_smaller_sum([-2,0,1,3], 2));
 // console.log(triplet_with_smaller_sum([2,0,0,2,-2], 2));
 
-// --------------Subarrays with Product Less than a Target  Leetcode # 713. Subarray Product Less Than K-------------------------//
+// --------------Subarrays with Product Less than a Target  Leetcode # 713. Subarray Product Less Than K----????---------------------//
 
-const find_subarrays = function(arr, target) {
-    result = [];
-    
+const find_subarrays = function (arr, target) {
+  result = [];
+  arr.sort((a, b) => a - b);
 
-    for (let i=0; i<arr.length; i++) {
-        let left = i + 1;
-        let right = arr.length - 1;
+  for (let i = 0; i < arr.length; i++) {
+    let left = i + 1;
+    let right = arr.length - 1;
 
-        if (arr[i] < target) {
-            result.push([arr[i]])
-        }
-        while (left < right) {
-            if (arr[i] * arr[left]  < target) {
-                result.push([arr[i],arr[left]])
-                left += 1;
-            } else (arr[i] * arr[left] * arr[right]  < target) {
-                result.push([arr[i],arr[left],arr[right]])
-                left += 1;
-            }
-        }
+    if (arr[i] < target) {
+      result.push([arr[i]]);
     }
+    while (left < right) {
+      if (arr[i] * arr[left] < target) {
+        result.push([arr[i], arr[left]]);
+        left += 1;
+      } else if (arr[i] * arr[left] * arr[right] <= target) {
+        result.push([arr[i], arr[left], arr[right]]);
+        left += 1;
+      } else if (arr[i] * arr[left] * arr[right] > target) {
+        right -= 1;
+      }
+    }
+  }
 
-    return result;
-  };
-  console.log(find_subarrays([2, 5, 3, 10], 30));
-console.log(find_subarrays([8, 2, 6, 5], 50));
-console.log(find_subarrays([10,5,2,6], 100))
+  return result;
+};
+//   console.log(find_subarrays([2, 5, 3, 10], 30));
+// console.log(find_subarrays([8, 2, 6, 5], 50));
+// console.log(find_subarrays([10,5,2,6], 100))
+
+// --------------Dutch National Flag Problem  Leetcode # ---------------------//
+const dutch_flag_sort = function (arr) {
+  let low = 0;
+  let high = arr.length - 1;
+  let i = 0;
+
+  while (i < high) {
+    if (arr[i] === 0) {
+      [arr[i], arr[low]] = [arr[low], arr[i]];
+      i++;
+      low++;
+    } else if (arr[i] === 1) {
+      i++;
+    } else {
+      [arr[i], arr[high]] = [arr[high], arr[i]];
+      high -= 1;
+    }
+  }
+};
+// let arr = [1, 0, 2, 1, 0];
+// dutch_flag_sort(arr);
+// console.log(arr);
+
+// arr = [2, 2, 0, 1, 2, 0];
+// dutch_flag_sort(arr);
+// console.log(arr);
+
+// --------------Quadruple Sum to Target  Leetcode # 18. 4Sum---------------------//
+const search_quadruplets = function (arr, target) {
+  quadruplets = [];
+  if (arr.length < 4) return quadruplets;
+  arr.sort((a, b) => a - b);
+
+  for (let i = 0; i < arr.length - 3; i++) {
+    if (i > 0 && arr[i] === arr[i - 1]) continue;
+    for (let j = i + 1; j < arr.length - 2; j++) {
+      if (i > 0 && arr[j] === arr[j - 1]) continue;
+      let left = j + 1;
+      let right = arr.length - 1;
+
+      while (left < right) {
+        const sum = arr[i] + arr[j] + arr[left] + arr[right];
+        if (sum === target) {
+          quadruplets.push([arr[i], arr[j], arr[left], arr[right]]);
+          left += 1;
+          right -= 1;
+          while (left < right && arr[left] !== arr[left + 1]) {
+            left += 1;
+          }
+          while (left < right && arr[right] !== arr[right - 1]) {
+            right -= 1;
+          }
+        } else if (sum < target) {
+          left += 1;
+        } else if (sum > target) {
+          right -= 1;
+        }
+      }
+    }
+  }
+  return quadruplets;
+};
+
+console.log(search_quadruplets([4, 1, 2, -1, 1, -3], 1));
+console.log(search_quadruplets([2, 0, -1, 1, -2, 2], 2));
+console.log(search_quadruplets([2, 2, 2, 2, 2], 8));
