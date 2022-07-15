@@ -226,7 +226,7 @@ const search_quadruplets = function (arr, target) {
   for (let i = 0; i < arr.length - 3; i++) {
     if (i > 0 && arr[i] === arr[i - 1]) continue;
     for (let j = i + 1; j < arr.length - 2; j++) {
-      if (i > 0 && arr[j] === arr[j - 1]) continue;
+      if (j > i + 1 && arr[j] === arr[j - 1]) continue;
       let left = j + 1;
       let right = arr.length - 1;
 
@@ -236,10 +236,10 @@ const search_quadruplets = function (arr, target) {
           quadruplets.push([arr[i], arr[j], arr[left], arr[right]]);
           left += 1;
           right -= 1;
-          while (left < right && arr[left] !== arr[left + 1]) {
+          while (left < right && arr[left] === arr[left - 1]) {
             left += 1;
           }
-          while (left < right && arr[right] !== arr[right - 1]) {
+          while (left < right && arr[right] === arr[right + 1]) {
             right -= 1;
           }
         } else if (sum < target) {
@@ -253,6 +253,117 @@ const search_quadruplets = function (arr, target) {
   return quadruplets;
 };
 
-console.log(search_quadruplets([4, 1, 2, -1, 1, -3], 1));
-console.log(search_quadruplets([2, 0, -1, 1, -2, 2], 2));
-console.log(search_quadruplets([2, 2, 2, 2, 2], 8));
+// console.log(search_quadruplets([4, 1, 2, -1, 1, -3], 1));
+// console.log(search_quadruplets([2, 0, -1, 1, -2, 2], 2));
+// console.log(search_quadruplets([2, 2, 2, 2, 2], 8));
+
+// --------------Comparing Strings containing Backspaces  Leetcode # 844. Backspace String Compare---------------------//
+
+// const backspace_compare = function (str1, str2) {         //NOT TWO POINT WAY
+//   const helper = function (str) {
+//     const strArr = [];
+//     for (let i = 0; i < str.length; i++) {
+//       // let left = i+1;
+//       if (str[i] !== "#") {
+//         strArr.push(str[i]);
+//       } else {
+//         strArr.pop();
+//       }
+//     }
+//     return strArr.join();
+//   };
+//   return helper(str1) === helper(str2)
+// };
+
+function backspace_compare(str1, str2) {
+  let index1 = str1.length - 1;
+  let index2 = str2.length - 1;
+
+  while (index1 >= 0 || index2 >= 0) {
+    let i1 = getNextIndex(str1, index1);
+    let i2 = getNextIndex(str2, index2);
+    console.log(i1, i2);
+    if (i1 < 0 && i2 < 0) {
+      // reached the end of both strings
+      console.log(`q`);
+      return true;
+    }
+    if (i1 < 0 || i2 < 0) {
+      //reached the end of one of the strings
+      console.log(`q`);
+      return false;
+    }
+    if (str1[i1] !== str2[i2]) {
+      console.log(str1[i1], str2[i2]); //check if the characters are equal
+      return false;
+    }
+    console.log(`q`);
+    index1 = i1 - 1;
+    index2 = i2 - 1;
+  }
+  return true;
+}
+
+function getNextIndex(str, index) {
+  let backSpaceCount = 0;
+  while (index > 0) {
+    if (str[index] === "#") {
+      backSpaceCount += 1;
+    } else if (backSpaceCount > 0) {
+      backSpaceCount -= 1;
+    } else {
+      console.log(index);
+      break;
+    }
+    index -= 1;
+  }
+  console.log(str, index);
+  return index;
+}
+
+// console.log(backspace_compare("xy#z", "xzz#"));
+// console.log(backspace_compare("xy#z", "xyz#"));
+// console.log(backspace_compare("xp#", "xyz##"));
+// console.log(backspace_compare("xywrrmp", "xywrrmu#p"));
+
+// --------------Minimum Window Sort  Leetcode # ---------------------//
+
+const shortest_window_sort = function (arr) {
+  let low = 0;
+  let high = arr.length - 1;
+
+  while (low < arr.length - 1 && arr[low] <= arr[low + 1]) {
+    low += 1;
+  }
+
+  if (low === arr.length - 1) {
+    //means its the sorted array
+    return 0;
+  }
+
+  while (high > 0 && arr[high] >= arr[high - 1]) {
+    high -= 1;
+  }
+
+  let subArrayMax = -Infinity;
+  let subArrayMin = Infinity;
+  for (let i = low; i < high + 1; i++) {
+    subArrayMax = Math.max(subArrayMax, arr[i]);
+    subArrayMin = Math.min(subArrayMin, arr[i]);
+  }
+
+  while (low > 0 && arr[low - 1] > subArrayMin) {
+    low -= 1;
+  }
+
+  while (high < arr.length - 1 && arr[high + 1] < subArrayMax) {
+    high += 1;
+  }
+
+  return high - low + 1;
+};
+
+console.log(shortest_window_sort([1, 2, 5, 3, 7, 10, 9, 12]));
+console.log(shortest_window_sort([1, 3, 2, 0, -1, 7, 10]));
+console.log(shortest_window_sort([1, 2, 3]));
+console.log(shortest_window_sort([3, 2, 1]));
