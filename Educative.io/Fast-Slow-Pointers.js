@@ -7,19 +7,19 @@
 //   }
 // }
 
-const has_cycle = function (head) {
-  // TODO: Write your code here
-  let slow = head;
-  let fast = head;
+// const has_cycle = function (head) {
+//   // TODO: Write your code here
+//   let slow = head;
+//   let fast = head;
 
-  while (fast !== null && fast.next !== null) {
-    slow = slow.next;
-    fast = fast.next.next;
+//   while (fast !== null && fast.next !== null) {
+//     slow = slow.next;
+//     fast = fast.next.next;
 
-    if (slow === fast) return true;
-  }
-  return false;
-};
+//     if (slow === fast) return true;
+//   }
+//   return false;
+// };
 
 // head = new Node(1);
 // head.next = new Node(2);
@@ -44,24 +44,25 @@ const has_cycle = function (head) {
 //   }
 // }
 
-let find_cycle_start = function (head) {
-  if (head === null || head === head.next) return head;
-  let slow = head,
-    fast = head,
-    pointer = head;
-  while (fast !== null && fast.next !== null) {
-    slow = slow.next;
-    fast = fast.next.next;
-    if (slow === fast) {
-      while (pointer !== slow) {
-        pointer = pointer.next;
-        slow = slow.next;
-      }
-      return pointer;
-    }
-  }
-  return null;
-};
+// let find_cycle_start = function (head) {
+//   if (head === null || head === head.next) return head;
+//   let slow = head,
+//     fast = head,
+//     pointer = head;
+//   while (fast !== null && fast.next !== null) {
+//     slow = slow.next;
+//     fast = fast.next.next;
+//     if (slow === fast) {
+//       while (pointer !== slow) {
+//         pointer = pointer.next;
+//         slow = slow.next;
+//       }
+//       return pointer;
+//     }
+//   }
+//   return null;
+// };
+
 //    const head = new Node(1);
 //    head.next = new Node(2);
 //    head.next.next = new Node(3);
@@ -139,56 +140,141 @@ const find_middle_of_linked_list = function (head) {
 
 //------------------------Palindrome LinkedList Leetcode # 234. Palindrome Linked List --------------------------//
 
-class Node {
-  constructor(value, next = null) {
-    this.value = value;
-    this.next = next;
-  }
-}
+// class Node {
+//   constructor(value, next = null) {
+//     this.value = value;
+//     this.next = next;
+//   }
+// }
 
-const reverse = (head) => {
+// const reverse = (head) => {
+//   let curr = head;
+//   let prev = null;
+//   let next;
+
+//   while (curr) {
+//     next = curr.next;
+//     curr.next = prev;
+//     prev = curr;
+//     curr = next;
+//   }
+//   return prev;
+// };
+
+// const is_palindromic_linked_list = function (head) {
+//   let slow = head;
+//   let fast = head;
+//   let startPoint = head;
+//   let length = 0;
+
+//   while (fast && fast.next) {
+//     fast = fast.next.next;
+//     slow = slow.next;
+//     length += 1;
+//   }
+//   let mid = reverse(slow);
+
+//   while (length) {
+//     length--;
+//     if (mid.val !== startPoint.val) return false;
+//     mid = mid.next;
+//     startPoint = startPoint.next;
+//   }
+//   return true;
+// };
+
+// head = new Node(2);
+// head.next = new Node(4);
+// head.next.next = new Node(6);
+// head.next.next.next = new Node(4);
+// head.next.next.next.next = new Node(2);
+
+// console.log(`Is palindrome: ${is_palindromic_linked_list(head)}`);
+
+// head.next.next.next.next.next = new Node(2);
+// console.log(`Is palindrome: ${is_palindromic_linked_list(head)}`);
+
+//------------------------Rearrange a LinkedList Leetcode # 143. Reorder List --------------------------//
+
+function reverse(head) {
   let curr = head;
   let prev = null;
   let next;
 
-  while (curr) {
+  while (curr !== null) {
     next = curr.next;
     curr.next = prev;
     prev = curr;
     curr = next;
   }
   return prev;
-};
+}
 
-const is_palindromic_linked_list = function (head) {
+// class Node {
+//   constructor(value, next = null) {
+//     this.value = value;
+//     this.next = next;
+//   }
+
+//   print_list() {
+//     let result = "";
+//     let temp = this;
+//     while (temp !== null) {
+//       result += temp.value + " ";
+//       temp = temp.next;
+//     }
+//     console.log(result);
+//   }
+// }
+
+const reorder = function (head) {
+  if (head === null || head.next === null) {
+    return;
+  }
   let slow = head;
   let fast = head;
-  let startPoint = head;
-  let length = 0;
 
-  while (fast && fast.next) {
-    fast = fast.next.next;
+  while (fast !== null && fast.next !== null) {
     slow = slow.next;
-    length += 1;
+    fast = fast.next.next;
   }
-  let mid = reverse(slow);
 
-  while (length) {
-    length--;
-    if (mid.val !== startPoint.val) return false;
-    mid = mid.next;
-    startPoint = startPoint.next;
+  let headSecondHalf = reverse(slow);
+  let headFirstHalf = head;
+
+  while (headFirstHalf !== null && headSecondHalf !== null) {
+    let temp = headFirstHalf.next;
+    headFirstHalf.next = headSecondHalf;
+    headFirstHalf = temp;
+
+    temp = headSecondHalf.next;
+    headSecondHalf.next = headFirstHalf;
+    headSecondHalf = temp;
   }
-  return true;
+  if (headFirstHalf !== null) {
+    headFirstHalf.next = null;
+  }
 };
 
-head = new Node(2);
-head.next = new Node(4);
-head.next.next = new Node(6);
-head.next.next.next = new Node(4);
-head.next.next.next.next = new Node(2);
+// head = new Node(2);
+// head.next = new Node(4);
+// head.next.next = new Node(6);
+// head.next.next.next = new Node(8);
+// head.next.next.next.next = new Node(10);
+// head.next.next.next.next.next = new Node(12);
+// reorder(head);
+// head.print_list();
 
-console.log(`Is palindrome: ${is_palindromic_linked_list(head)}`);
+//------------------------Cycle in a Circular Array Leetcode # 457. Circular Array Loop --------------------------//
 
-head.next.next.next.next.next = new Node(2);
-console.log(`Is palindrome: ${is_palindromic_linked_list(head)}`);
+
+
+const circular_array_loop_exists = function(arr) {
+    
+};
+
+
+
+console.log(`${circular_array_loop_exists([1, 2, -1, 2, 2])}`)
+console.log(`${circular_array_loop_exists([2, 2, -1, 2])}`)
+console.log(`${circular_array_loop_exists([2, 1, -1, -2])}`)
