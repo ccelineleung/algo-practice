@@ -114,3 +114,52 @@ const find_all_duplicates = function (nums) {
 
 // console.log(find_all_duplicates([3, 4, 4, 5, 5]));
 // console.log(find_all_duplicates([5, 4, 7, 2, 3, 5, 3]));
+
+// --------------------------Find the Corrupt Pair Leetcode # -------------------//
+const find_corrupt_numbers = function (nums) {
+  let i = 0;
+  while (i < nums.length) {
+    const j = nums[i] - 1;
+    if (nums[i] !== nums[j]) {
+      [nums[i], nums[j]] = [nums[j], nums[i]];
+    } else {
+      i += 1;
+    }
+  }
+  const result = [];
+  for (let k = 0; k < nums.length; k++) {
+    if (nums[k] !== k + 1) {
+      result.push(nums[k], k + 1);
+    }
+  }
+  return result;
+};
+
+// console.log(find_corrupt_numbers([3, 1, 2, 5, 2]));
+// console.log(find_corrupt_numbers([3, 1, 2, 3, 6, 4]));
+
+// --------------------------Find the Smallest Missing Positive Number Leetcode # -------------------//
+const find_first_smallest_missing_positive = function (nums) {
+
+  let i = 0;
+  while (i < nums.length) {
+    
+      const j = nums[i] - 1;
+      if (nums[i] > 0 && nums[i] <= nums.length && nums[i] !== nums[j]) {
+        [nums[i], nums[j]] = [nums[j], nums[i]];
+      } else {
+        i += 1;
+      }
+    } 
+  
+  console.log(nums);
+  for (let k = 0; k < nums.length; k++) {
+    if (nums[k] !== k+1 ) {
+      return k+1
+    }
+  }
+};
+
+console.log(find_first_smallest_missing_positive([-3, 1, 5, 4, 2]));
+console.log(find_first_smallest_missing_positive([3, -2, 0, 1, 2]));
+console.log(find_first_smallest_missing_positive([3, 2, 5, 1]));
