@@ -140,26 +140,64 @@ const find_corrupt_numbers = function (nums) {
 
 // --------------------------Find the Smallest Missing Positive Number Leetcode # -------------------//
 const find_first_smallest_missing_positive = function (nums) {
-
   let i = 0;
   while (i < nums.length) {
-    
-      const j = nums[i] - 1;
-      if (nums[i] > 0 && nums[i] <= nums.length && nums[i] !== nums[j]) {
-        [nums[i], nums[j]] = [nums[j], nums[i]];
-      } else {
-        i += 1;
-      }
-    } 
-  
-  console.log(nums);
+    const j = nums[i] - 1;
+    if (nums[i] > 0 && nums[i] <= nums.length && nums[i] !== nums[j]) {
+      [nums[i], nums[j]] = [nums[j], nums[i]];
+    } else {
+      i += 1;
+    }
+  }
+
+  //console.log(nums);
   for (let k = 0; k < nums.length; k++) {
-    if (nums[k] !== k+1 ) {
-      return k+1
+    if (nums[k] !== k + 1) {
+      return k + 1;
     }
   }
 };
 
-console.log(find_first_smallest_missing_positive([-3, 1, 5, 4, 2]));
-console.log(find_first_smallest_missing_positive([3, -2, 0, 1, 2]));
-console.log(find_first_smallest_missing_positive([3, 2, 5, 1]));
+// console.log(find_first_smallest_missing_positive([-3, 1, 5, 4, 2]));
+// console.log(find_first_smallest_missing_positive([3, -2, 0, 1, 2]));
+// console.log(find_first_smallest_missing_positive([3, 2, 5, 1]));
+
+// ------------------------Find the First K Missing Positive Numbers Leetcode # -------------------//
+const find_first_k_missing_positive = function (nums, k) {
+  missingNumbers = [];
+  let i = 0;
+
+  while (i < nums.length) {
+    const j = nums[i] - 1;
+    if (nums[i] <= nums.length && nums[i] > 0 && nums[i] !== nums[j]) {
+      [nums[i], nums[j]] = [nums[j], nums[i]];
+    } else {
+      i += 1;
+    }
+  }
+
+  const extraNumbers = new Set();
+  for (j = 0; j < nums.length; j++) {
+    if (missingNumbers.length < k) {
+      if (nums[j] !== j + 1) {
+        missingNumbers.push(j + 1);
+        extraNumbers.add(nums[j]);
+      }
+    }
+  }
+  console.log(extraNumbers);
+
+  let q = 1;
+  while (missingNumbers.length < k) {
+    const candidateNumber = i + 1;
+    if (!extraNumbers.has(candidateNumber)) {
+      missingNumbers.push(candidateNumber);
+    }
+    i += 1;
+  }
+  return missingNumbers;
+};
+
+console.log(find_first_k_missing_positive([3, -1, 4, 5, 5], 3));
+console.log(find_first_k_missing_positive([2, 3, 4], 3));
+console.log(find_first_k_missing_positive([-2, -3, 4], 2));
