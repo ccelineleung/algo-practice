@@ -125,7 +125,6 @@ const traverse = function (root) {
 // root.right.left.right = new TreeNode(17);
 // console.log(`Zigzag traversal: ${traverse(root)}`);
 
-
 // ------------------------Level Averages in a Binary Tree  LeetCode #637. Average of Levels in Binary Tree----------------------------//
 
 // class TreeNode {
@@ -133,10 +132,10 @@ const traverse = function (root) {
 //     constructor(value) {
 //       this.value = value;
 //       this.left = null;
-//       this.right = null; 
+//       this.right = null;
 //     }
 //   };
-  
+
 //   const find_level_averages = function(root) {
 //     result = [];
 //     const queue = [root];
@@ -147,7 +146,7 @@ const traverse = function (root) {
 //         let sum = 0;
 
 //         for (let i =0; i<currLength; i++) {
-//             let currNode = queue.shift() 
+//             let currNode = queue.shift()
 //             sum += currNode.value
 
 //             if (currNode.left) queue.push(currNode.left);
@@ -157,8 +156,7 @@ const traverse = function (root) {
 //     }
 //     return result;
 //   };
-  
-  
+
 //   var root = new TreeNode(12)
 //   root.left = new TreeNode(7)
 //   root.right = new TreeNode(1)
@@ -166,34 +164,47 @@ const traverse = function (root) {
 //   root.left.right = new TreeNode(2)
 //   root.right.left = new TreeNode(10)
 //   root.right.right = new TreeNode(5)
-  
+
 //   console.log(`Level averages are: ${find_level_averages(root)}`)
 
-  // ------------------------Minimum Depth of a Binary Tree LeetCode #111. Minimum Depth of Binary Tree----------------------------//
-  
-  class TreeNode {
+// ------------------------Minimum Depth of a Binary Tree LeetCode #111. Minimum Depth of Binary Tree----------------------------//
 
-    constructor(value) {
-      this.value = value;
-      this.left = null;
-      this.right = null; 
+class TreeNode {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+const find_minimum_depth = function (root) {
+  if (root === null) return 0;
+  let queue = [root];
+  let count = 0;
+  while (queue.length > 0) {
+    const currLength = queue.length;
+    count += 1;
+
+    for( let i=0; i<currLength ; i++) {
+      let currNode = queue.shift();
+
+      if (currNode.left === null && currNode.right === null) return count;
+      if (currNode.left) {
+        queue.push(currNode.left);
+      }
+      if (currNode.right) {
+        queue.push(currNode.right);
+      }
     }
-  };
-  
-  
-  const find_minimum_depth = function(root) {
-    // TODO: Write your code here
-    return -1;
-  };
-  
-  
-  
-  var root = new TreeNode(12)
-  root.left = new TreeNode(7)
-  root.right = new TreeNode(1)
-  root.right.left = new TreeNode(10)
-  root.right.right = new TreeNode(5)
-  console.log(`Tree Minimum Depth: ${find_minimum_depth(root)}`)
-  root.left.left = new TreeNode(9)
-  root.right.left.left = new TreeNode(11)
-  console.log(`Tree Minimum Depth: ${find_minimum_depth(root)}`)
+  }
+};
+
+var root = new TreeNode(12);
+root.left = new TreeNode(7);
+root.right = new TreeNode(1);
+root.right.left = new TreeNode(10);
+root.right.right = new TreeNode(5);
+console.log(`Tree Minimum Depth: ${find_minimum_depth(root)}`);
+root.left.left = new TreeNode(9);
+root.right.left.left = new TreeNode(11);
+console.log(`Tree Minimum Depth: ${find_minimum_depth(root)}`);
