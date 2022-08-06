@@ -347,12 +347,29 @@ const search_rotated_array = function (arr, key) {
 
 You can assume that the array does not have any duplicates. */
 
-const count_rotations = function(arr) {
-    // TODO: Write your code here
-    return -1 ;
-  };
-  
-  
-  console.log(count_rotations([10, 15, 1, 3, 8]))
-  console.log(count_rotations([4, 5, 7, 9, 10, -1, 2]))
-  console.log(count_rotations([1, 3, 8, 10]))
+const count_rotations = function (arr) {
+  let start = 0;
+  let end = arr.length - 1;
+
+  while (start < end) {
+    let mid = Math.floor((start + end) / 2);
+
+    // if mid is greater than the next element
+    if (mid < end && arr[mid] > arr[mid + 1]) return mid + 1;
+    // if mid is smaller than the previous element
+    if (mid > start && arr[mid - 1] > arr[mid]) return mid;
+
+    // left side is sorted, so the prev is on the right side
+    if (arr[start] < arr[mid]) {
+      start = mid + 1;
+      //right side is sorted, so the prev is on the left side
+    } else {
+      end = mid - 1;
+    }
+  }
+  return 0;
+};
+
+console.log(count_rotations([10, 15, 1, 3, 8]));
+console.log(count_rotations([4, 5, 7, 9, 10, -1, 2]));
+console.log(count_rotations([1, 3, 8, 10]));
