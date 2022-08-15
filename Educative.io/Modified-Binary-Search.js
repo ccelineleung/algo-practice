@@ -370,6 +370,7 @@ const count_rotations = function (arr) {
   return 0;
 };
 
-console.log(count_rotations([10, 15, 1, 3, 8]));
-console.log(count_rotations([4, 5, 7, 9, 10, -1, 2]));
-console.log(count_rotations([1, 3, 8, 10]));
+// console.log(count_rotations([10, 15, 1, 3, 8]));
+// console.log(count_rotations([4, 5, 7, 9, 10, -1, 2]));
+// console.log(count_rotations([1, 3, 8, 10]));
+---
