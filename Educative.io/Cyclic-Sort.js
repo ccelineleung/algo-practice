@@ -201,5 +201,4 @@ const find_first_k_missing_positive = function (nums, k) {
 console.log(find_first_k_missing_positive([3, -1, 4, 5, 5], 3));
 console.log(find_first_k_missing_positive([2, 3, 4], 3));
 console.log(find_first_k_missing_positive([-2, -3, 4], 2));
-//
-//----
+console.log(find_first_k_missing_positive([-5,-3,-2,3,4,6],5))
