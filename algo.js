@@ -1777,19 +1777,28 @@ function assertEquals(str) {
 
 function findSum(n) {
   let result = 0;
-  for (let i=0; i<=n; i++) {
-    if(i % 3 === 0 || i % 5 === 0){
-      result += i
+  for (let i = 0; i <= n; i++) {
+    if (i % 3 === 0 || i % 5 === 0) {
+      result += i;
     }
   }
-  return result
+  return result;
 }
 
-function wdm(talk){
-  
+function wdm(talk) {
+  return talk
+    .replace(/puke|hiccup/g, "")
+    .replace(/ +/g, " ")
+    .trim();
+}
 
-    return talk.replace(/puke|hiccup/g,'').replace(/ +/g,' ').trim()
- 
- }
+// console.log(wdm("puke All's well hiccup     that ends hiccup well puke"))
 
-  console.log(wdm("puke All's well hiccup     that ends hiccup well puke"))
+function reverseObject(object) {
+  const newObj = {};
+  for (let key in object) {
+    newObj[object[key]] = key;
+  }
+  return newObj;
+}
+console.log(reverseObject({ a: 1, b: "c", d: 4 }));
