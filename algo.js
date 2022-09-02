@@ -1802,3 +1802,5 @@ function reverseObject(object) {
   return newObj;
 }
 console.log(reverseObject({ a: 1, b: "c", d: 4 }));
+
+//----
