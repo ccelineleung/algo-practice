@@ -73,30 +73,30 @@ console.log(countdown(10));
 // // console.log(sum([1,1,1])); // -> returns 3
 // // console.log(sum([1,2,3,4,5,6])); // -> returns 21
 
-// // Challenge 3
-// function palindrome(string, i = 0) {
-//   // declear a veriable named i inside the recursion, and assgin the value of i to 0;
-//   //using the RegEx to combin the string without space and punctuations, and create a variable str to store the value
-//   //base case: if i equals to the length of string divied by 2, and round up, we should return true
-//   //if str at index i is not euqal to str at index length of string mins 1 and mins i, return false;
-//   //increment i by 1
-//   // return function palindrome with two paramters str, and i
-//   let str = string
-//     .replace(/[^\w\s\']|_/g, "")
-//     .replace(/\s/g, "")
-//     .toLowerCase();
+// Challenge 3
+function palindrome(string, i = 0) {
+  // declear a veriable named i inside the recursion, and assgin the value of i to 0;
+  //using the RegEx to combin the string without space and punctuations, and create a variable str to store the value
+  //base case: if i equals to the length of string divied by 2, and round up, we should return true
+  //if str at index i is not euqal to str at index length of string mins 1 and mins i, return false;
+  //increment i by 1
+  // return function palindrome with two paramters str, and i
+  let str = string
+    .replace(/[^\w\s\']|_/g, "")
+    .replace(/\s/g, "")
+    .toLowerCase();
 
-//   if (i === Math.ceil(str.length / 2)) return true;
+  if (i === Math.ceil(str.length / 2)) return true;
 
-//   if (str[i] !== str[str.length - 1 - i]) return false;
+  if (str[i] !== str[str.length - 1 - i]) return false;
 
-//   i += 1;
-//   return palindrome(str, i);
-// }
+  i += 1;
+  return palindrome(str, i);
+}
 
-// // console.log(palindrome("Anne, I vote more cars race Rome-to-Vienna")); //-> true
-// // console.log(palindrome("llama mall")); //-> true
-// // console.log(palindrome("jmoney")); //-> false
+console.log(palindrome("Anne, I vote more cars race Rome-to-Vienna")); //-> true
+console.log(palindrome("llama mall")); //-> true
+console.log(palindrome("jmoney")); //-> false
 
 // // Challenge 4
 
@@ -1803,4 +1803,4 @@ function reverseObject(object) {
 }
 console.log(reverseObject({ a: 1, b: "c", d: 4 }));
 
-//----
+//-------
