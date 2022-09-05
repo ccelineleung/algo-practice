@@ -142,26 +142,26 @@ console.log(palindrome("jmoney")); //-> false
 // const arr = ["first", "second", "third"];
 // // console.log(pathFinder(obj, arr));   //-> "finish"
 
-// //Challenge 6
-// function flattenRecursively(arr) {
-//   //create an empty array named result
-//   // loop though the arr
-//   //if arr at index i is an array, return function flattenRecursively with arr at index i
-//   //if it is not an array, push arr at index i to the empty array result
-//   //return result
-//   let result = [];
-//   for (let i = 0; i < arr.length; i++) {
-//     if (Array.isArray(arr[i])) {
-//       result = result.concat(arr[i]);
-//       return flattenRecursively(result);
-//     } else {
-//       result.push(arr[i]);
-//     }
-//   }
-//   return result;
-// }
-// // console.log(flattenRecursively([1, [2, 3, [4]]])); //-> [1, 2, 3, 4]
-// // console.log(flattenRecursively([1, {}, [3, [[4]]]])); //-> [1, {}, 3, 4]
+//Challenge 6
+function flattenRecursively(arr) {
+  //create an empty array named result
+  // loop though the arr
+  //if arr at index i is an array, return function flattenRecursively with arr at index i
+  //if it is not an array, push arr at index i to the empty array result
+  //return result
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (Array.isArray(arr[i])) {
+      result = result.concat(arr[i]);
+      return flattenRecursively(result);
+    } else {
+      result.push(arr[i]);
+    }
+  }
+  return result;
+}
+console.log(flattenRecursively([1, [2, 3, [4]],2])); //-> [1, 2, 3, 4]
+console.log(flattenRecursively([1, {}, [3, [[4]]]])); //-> [1, {}, 3, 4]
 
 // //Challenge 7
 // function findInOrderedSet(arr, target, mid = Math.ceil(arr.length / 2)) {
